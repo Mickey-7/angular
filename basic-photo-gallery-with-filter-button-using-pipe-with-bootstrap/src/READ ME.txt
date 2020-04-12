@@ -1,0 +1,43 @@
+=> install bootstrap
+
+npm install bootstrap@3
+
+then paste below code on style.css
+
+@import "../node_modules/bootstrap/dist/css/bootstrap.css"
+
+from style.css need to go up one folder so that the directory your currently in is now at node_modules
+
+we have navbar, image & gallery components
+the navbar will be the header, gallery will contain all the images
+and the image will contain the selected specific image,
+then go to app-routing.module.ts and code the path and components
+and check the outputs on web browser
+
+--------------------------------------------------------
+
+=> creating  service
+
+NOTE: dont forget to import the service on app.module.ts on providers:[ImageService]
+
+create a image.service which contains the mock-data and the method of
+getting all images and specific image then import that on image component
+
+=> creating pipe
+
+npx ng g pipe pipe/filter ---skipTests
+
+NOTE: dont forget to manually import the class pipe on app.module.ts on 
+providers:[FilterPipe] and declarations:[FilterPipe]
+
+provide the pipe name, items & its datatype, criteria & its datatype , output & its datatype
+and the logic condition for the following pipe and import it to gallery component as there
+is where filtering happens, it should reflect on both .ts and .html file of that component
+
+--------------------------------------------------------
+
+the gallery components will contain images and will invoke the filter.pipe.ts
+
+navbar
+gallery=>route=>image
+-------------------------------------------------------------

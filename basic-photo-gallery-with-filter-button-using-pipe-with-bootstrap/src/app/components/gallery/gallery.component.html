@@ -1,0 +1,24 @@
+<h3>{{title}}</h3>
+<div class="row">
+    <button (click)="filterBy='all'" class="btn btn-lg btn-info">All</button>
+    <button (click)="filterBy='boats'" class="btn btn-lg btn-info">Boats</button>
+    <button (click)="filterBy='camping'" class="btn btn-lg btn-info">Camping</button>
+    <button (click)="filterBy='library'" class="btn btn-lg btn-info">Library</button>
+    <!-- thumbnailsList will make the image in grid row -->
+    <ul class="thumbnailsList">
+    <!-- imageFilter was from filter.pipe.ts file
+    once any button was clicked, it will activate the filter.pipe.ts thru imageFilter
+    and  the filterBy string value will be replaced by what is indicated in the (click) event -->
+        <li *ngFor="let image of (visibleImages|imageFilter:filterBy)">
+            <!-- a-r then choose routerLink then tab for shortcut -->
+            <!-- for chooing specific image, it will be directed to the router path 
+                below /image/:id which can be found in app-routing.module.ts -->
+            <a [routerLink]="['/image',image.id]" routerLinkActive="router-link-active" >
+                <!-- we should also put ActivatedRoute on the constructor of the ImageComponent
+                as it is being accessed on the Router of the app-routing.module.ts -->
+                <img src="{{image.url}}" class="tn" width="200" height="160"/>
+            </a>
+        </li>
+    </ul>
+</div>
+

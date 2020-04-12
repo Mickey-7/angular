@@ -1,0 +1,86 @@
+<div class="container">
+  <div class="col-md-12">
+    <h3>User List</h3>
+    <table class="table table-bordered table-striped table-hover">
+      <thead>
+        <tr>
+          <th class="text-center">ID</th>
+          <th class="text-center">First Name</th>
+          <th class="text-center">Last Name</th>
+          <th class="text-center">&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users">
+          <td>{{ user.id }}</td>
+          <td>{{ user.firstName }}</td>
+          <td>{{ user.lastName }}</td>
+          <td>
+            <button (click)="showEditUserForm(user)" class="btn btn-info mr-2">
+              <i class="fa fa-edit">Edit</i>
+            </button>
+            <button (click)="removeUser(user)" class="btn btn-danger">
+              <i class="fa fa-minus">Delete</i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <button (click)="showAddUserForm()" class="btn btn-success">
+      <i class="fa fa-plus">Add</i>
+    </button>
+
+    <form *ngIf="userForm">
+      <h3>Add New User</h3>
+      <p>
+        First Name:
+        <input [(ngModel)]="newUser.firstName" name="firstName" type="text" />
+      </p>
+      <p>
+        Last Name:
+        <input [(ngModel)]="newUser.lastName" name="lastName" type="text" />
+      </p>
+      <p>
+        <button
+          (click)="saveUser(newUser)"
+          type="button"
+          class="btn btn-primary mr-2"
+        >
+          Submit
+        </button>
+        <button (click)="cancelNewUser()" type="button" class="btn btn-warning">
+          Cancel
+        </button>
+      </p>
+    </form>
+
+    <form *ngIf="editUserForm">
+      <h2>Edit User Details</h2>
+      <p>
+        First Name:
+        <input
+          type="text"
+          name="firstName"
+          [(ngModel)]="editedUser.firstName"
+        />
+      </p>
+      <p>
+        Last Name:
+        <input type="text" name="lastName" [(ngModel)]="editedUser.lastName" />
+      </p>
+      <p>
+        <button
+          type="button"
+          class="btn btn-primary mr-2"
+          (click)="updateUser(editedUser)"
+        >
+          Submit
+        </button>
+        <button type="button" class="btn btn-warning" (click)="cancelEdits()">
+          Cancel
+        </button>
+      </p>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,24 @@
+=> to use bootstrap, just paste the link below on index.html
+
+<!-- Latest compiled and minified CSS -->
+<link 
+    rel="stylesheet" 
+    href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" 
+    integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" 
+    crossorigin="anonymous"
+>
+
+then create mock data on app.component.ts
+
+also import FomrsModule on app.module.ts
+
+=> no need to create pipe, just import ng2-search-filter on app.module.ts like below:
+
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+imports:[Ng2SearchPipeModule]
+
+and include (pipe) | filter:searchText on the *ngFor on app.component.html
+
+=> the link was from: https://www.npmjs.com/package/ng2-search-filter
+
+npm i ng2-search-filter

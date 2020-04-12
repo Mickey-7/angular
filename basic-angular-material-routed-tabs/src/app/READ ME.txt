@@ -1,0 +1,44 @@
+https://material.angular.io/components/tabs/overview
+
+Tabs and navigation
+While <mat-tab-group> is used to switch between views within a single route, <nav mat-tab-nav-bar> provides a tab-like UI for navigating between routes.
+
+<nav mat-tab-nav-bar>
+  <a mat-tab-link
+     *ngFor="let link of navLinks"
+     [routerLink]="link.path"
+     routerLinkActive #rla="routerLinkActive"
+     [active]="rla.isActive">
+    {{link.label}}
+  </a>
+</nav>
+
+<router-outlet></router-outlet>
+The tab-nav-bar is not tied to any particular router; it works with normal <a> elements and uses the active property to determine which tab is currently active. 
+The corresponding <router-outlet> can be placed anywhere in the view.
+
+--------------------------------------------------------------------------------------
+
+https://nirajsonawane.github.io/2018/10/27/Angular-Material-Tabs-with-Router/
+
+Angular Material with Routing Tabs
+
+npx ng add @angular/material
+
+npx ng g c component1 -it -is --skipTests
+npx ng g c component2 -it -is --skipTests
+npx ng g c component3 -it -is --skipTests
+
+--------------------------------------------------------------------------------------
+
+add all the component in routing at app-routing.module.ts
+
+    { path: '', redirectTo: '/first', pathMatch: 'full' },
+
+import {MatTabsModule} from '@angular/material/tabs'; 
+    and on imports:[] on app.module.ts
+paste the above code from angular-material website on app.component.html
+    then make an array of the links named navLinks on app.component.ts
+
+
+

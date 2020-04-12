@@ -1,0 +1,52 @@
+=> on installation
+
+npx @angular/cli new (project-name)
+include routing and choose SCSS
+
+=> to install bootstrap, just paste the script below on index.html after the body
+
+<link
+    rel="stylesheet"
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+    crossorigin="anonymous"
+/>
+
+=> generate component
+
+npx ng g c components/(component-name) -it -is --skipTests
+
+we have 3 components (navbar, users, user-detail)
+
+1) go to app.component.html call the app-navbar component 
+2) and also render the router-outlet which will be created on navbar
+3) go to app-routing and code the necessary path & components
+4) go to navbar html and code the routerLinks for the components
+5) verify if the routing are okay
+
+---------------------------------------------------------------------
+
+=> generate interface first (must follow order of creation)
+
+npx ng g i interface/(interface-name)
+
+1) code all the parameters needed and specify the type of data
+
+=> generate service second (must follow order of creation)
+
+npx ng g s service/(service-name) --skipTests
+
+make sure to import the service on app.module.ts on providers
+like this code, providers:[UserService]
+
+2) import the interface created and crete dummy data to be displayed 
+3) also code all the services needed like CRUD method
+
+4) to display the dummy data on the users.component.ts,
+5) we need to import the service we created on the constructor of the component 
+that we are going to display the dummy data with (in this case, its users.component.ts)
+6) we also need to declare storage variable for the users like this: users:User[] as
+users will be used on ngOnInit and in .html file for *ngFor="let user of users"
+7) code the needed .html for users.component.html
+
+

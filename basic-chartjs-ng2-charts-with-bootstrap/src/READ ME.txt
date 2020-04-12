@@ -1,0 +1,35 @@
+=> create angular app
+
+npx @angular/cli new (project-name)
+note: bawal my . sa project-name
+
+=> run on browser
+npx ng serve
+
+=> install ng2-charts using npm
+
+npm install ng2-charts
+
+=> to use ng2-charts API
+
+import {ChartsModule} from 'ng2-charts'
+
+=> and in app.module.ts
+
+imports:[ChartsModule]
+
+=> install chart.js library
+
+npm install chart.js
+
+=> install bootstrap
+
+npm install bootstrap@3
+
+then paste below code on style.css
+
+@import "../node_modules/bootstrap/dist/css/bootstrap.css"
+
+=> generate component
+npx ng g c component/(component-name) -it -is --skipTests
+

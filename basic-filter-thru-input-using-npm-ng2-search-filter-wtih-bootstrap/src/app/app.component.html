@@ -1,0 +1,39 @@
+<div class="container text-center">
+  <h1>{{title}}</h1>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="search-hero">
+      <!-- for two-way data binding shit -->
+      <!-- type a-ngM then choose ngModel then tab -->
+      <!-- searchText here needs to be declared on app.component.ts
+      for temporary storage local variable -->
+      <!-- which is actually the searchText to be filtered below on pipe -->
+      <input
+      name="search" [(ngModel)]="searchText"
+      type="text"
+      placeholder="&#61442;  Start searching for a hero by id or name or country"
+      class="form-control"
+      />
+    </div>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Hero Name</th>
+          <th>Country</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- a-ngF then choose ngFor then tab -->
+        <!-- searchText here is realated to the above searchText
+        and must be declaerd also on the app.component.ts -->
+        <tr *ngFor="let hero of heroes | filter:searchText">
+          <td>{{hero.id}}</td>
+          <td>{{hero.name}}</td>
+          <td>{{hero.country}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
