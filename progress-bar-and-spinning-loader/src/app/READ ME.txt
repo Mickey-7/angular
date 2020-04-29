@@ -1,0 +1,56 @@
+reference : http://www.freakyjolly.com/angular-7-material-add-progress-spinner-loader-in-angular-application-example/
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Here we will create a new Angular 7 project using CLI and discuss How to use Progress bar and Spinning Loader. 
+These are of two types Determinate and Indeterminate.
+
+Determinate type of loaders show the progress of processes which can be indicated to users in terms of percentage of work done from 0 to 100%
+
+Indeterminate loaders show progress with animation to indicate the process is going on and completion and the current status are not known.
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+angular material
+    => npx ng add @angular/material
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Progress Spinner
+To use Progress spinner import MatProgressSpinnerModule in app.module.ts and add in the imports array
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+angular material reference : https://material.angular.io/components/progress-spinner/examples
+
+    Now you only need to add the following template where you want to show it (app.component.ts),
+    code was from documentation link above :
+
+        <mat-progress-spinner
+            [color]="colorSpinner"
+            [mode]="modeSpinner"
+            [value]="valueSpinner">
+        </mat-progress-spinner>
+
+    on app.component.ts
+
+        colorSpinner : ThemePalette = 'primary';
+        modeSpinner : ProgressSpinnerMode = 'indeterminate';
+        valueSpinner = 50;
+
+    on app.component.css
+
+        div{
+            display : flex;
+            justify-content : center;
+        }
+
+    both settings (display : flex, justify-content : center) must be used together!!!!!!!
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Progress Bar
+Similar like progress spinner we will import MatProgressBarModule in app.module.ts file
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+
