@@ -1,0 +1,199 @@
+reference : https://blog.jscrambler.com/how-to-create-angular-toastr-notifications/
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+Adding ngx-toastr to the Angular App
+    Install ngx-toastr using Node Package Manager (npm). 
+    ngx-toastr also requires the @angular/animation package as a dependency.
+
+        npm install ngx-toastr --save
+        npm install @angular/animations --save
+
+    -------------------------------------------------------------------------------------------------------------------------------------------
+    
+    Once you have installed the above packages, open the <project-directory>/angular.json file and include the toastr CSS.
+
+        "styles": [
+           "src/styles.css",
+           "node_modules/ngx-toastr/toastr.css"
+        ]
+
+    -------------------------------------------------------------------------------------------------------------------------------------------
+
+    Include the BrowserAnimationsModule and ToastrModule in the app.module.ts file and import both the modules.
+    Here is how the app.module.ts file looks:
+
+        import { BrowserModule } from '@angular/platform-browser';
+        import { NgModule } from '@angular/core';
+        import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+        import { ToastrModule } from 'ngx-toastr';
+
+        import { RootComponent } from './root/root.component';
+
+        @NgModule({
+        declarations: [
+            RootComponent
+        ],
+        imports: [
+            BrowserModule,
+            BrowserAnimationsModule,
+            ToastrModule.forRoot()
+        ],
+        providers: [],
+        bootstrap: [RootComponent]
+        })
+        export class AppModule { }
+
+    -------------------------------------------------------------------------------------------------------------------------------------------
+
+    In order to use the ngx-toastr module, you need to include the ToastrService in the RootComponent.
+
+        import { ToastrService } from 'ngx-toastr';
+    
+    Instantiate the ToastrService in the RootComponent's constructor method. 
+    Define a method to show the Toast message. Inside the method, initiate the success method of the ToastrService instance.
+    Here is how the method root.component.ts file should look:
+
+        import { Component, OnInit } from '@angular/core';
+        import { ToastrService } from 'ngx-toastr';
+
+        @Component({
+        selector: 'app-root',
+        templateUrl: './root.component.html',
+        styleUrls: ['./root.component.css']
+        })
+        export class RootComponent implements OnInit {
+
+        constructor(private toastr: ToastrService) { }
+
+        ngOnInit() {
+            
+        }
+        
+        showToaster(){
+            this.toastr.success("Hello, I'm the toastr message.")
+        }
+
+        }
+
+    -------------------------------------------------------------------------------------------------------------------------------------------
+
+    Then, add the click handler to the button inside the root.component.html file.
+
+        <button (click)="showToaster()">
+            Show Toaster
+        </button>
+
+    Save the above changes and restart the server. 
+    Click on the Show Toaster button when running the application on http://localhost:4200/. 
+    You will be able to view the toast message.
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+Adding a Custom Wrapper
+    Whenever you use an external module in your web application, it is always recommended to write a wrapper for it. 
+    Writing a wrapper makes sure that, in case at some point in future you need to replace the third party module, 
+    it doesn't break your application or need a lot of rewrite.
+
+    Let's have a look at how you can add a wrapper for ngx-toastr in your Angular application.
+
+    Create an Angular service called notification, which you'll use in your application for showing the toastr message. 
+    In src/app create a folder called utility. Navigate to the utility folder and create an Angular service.
+
+        npx ng g s service/notification --skipTests
+    
+    -------------------------------------------------------------------------------------------------------------------------------------------
+
+    Import the ngx-toastr service inside the NotificationService. 
+    Create a method called showSuccess to show success notification toasts. 
+    The notification.service.ts file should look similar to this:
+
+        import { Injectable } from '@angular/core';
+        import { ToastrService } from 'ngx-toastr';
+
+        @Injectable({
+          providedIn: 'root'
+        })
+        export class NotificationService {
+        
+          constructor(private toastr: ToastrService) { }
+
+          showSuccess(message, title){
+              this.toastr.success(message, title)
+          }
+        }
+
+    -------------------------------------------------------------------------------------------------------------------------------------------
+
+    Import the NotificationService wrapper inside the RootComponent and call the showSuccess method to show toast messages.
+    Here is how the root.component.ts file looks:
+
+        import { Component, OnInit } from '@angular/core';
+        import { NotificationService } from '../utility/notification.service'
+
+        @Component({
+        selector: 'app-root',
+        templateUrl: './root.component.html',
+        styleUrls: ['./root.component.css']
+        })
+        export class RootComponent implements OnInit {
+
+        constructor(private notifyService : NotificationService) { }
+
+        ngOnInit() {
+            
+        }
+
+        showToaster(){
+            this.notifyService.showSuccess("Data shown successfully !!", "Notification")
+        }
+
+        }
+
+    In case if you need to replace the ngx-toastr with any other module, you only need to modify the NotificationService. 
+    No other part of the application needs any change.
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+Customizing The Toast Notification
+    ngx-toastr provides a number of options to customize the toast notification. 
+    You can control how you want the toast notification to render. 
+    Find more information on the official docs.
+
+        https://www.npmjs.com/package/ngx-toastr
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+Adding HTML Content Inside Toast
+    ngx-toastr provides an option to add HTML code inside the toast message. 
+    To enable it to use HTML content inside the toast notification, you need to use the enableHtml option.
+
+    Add a new method inside the notification.service.ts file to render HTML inside the toast notification, as shown:
+
+        showHTMLMessage(message, title){
+            this.toastr.success(message, title, {
+                enableHtml :  true
+            })
+        }
+
+    -------------------------------------------------------------------------------------------------------------------------------------------
+
+    Call the above message on click of the button and you will have the HTML content displayed inside the toaster notification.
+
+        showHtmlToaster(){
+        	this.notifyService.showHTMLMessage("<h2>Data shown successfully !!</h2>", "Notification")
+        }
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+Control Notification Display Time
+    ngx-toastr also provides an option to control the time for which the notification is displayed. 
+    You can increase or decrease the time by using the timeOut option. The time unit here is milliseconds.
+
+        showSuccessWithTimeout(message, title, timespan){
+            this.toastr.success(message, title ,{
+                timeOut :  timespan
+            })
+        }
+
+------------------------------------------------------------------------------------------------------------------------------------------------
