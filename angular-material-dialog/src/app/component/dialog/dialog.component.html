@@ -1,0 +1,20 @@
+<p>dialog works!</p>
+<!-- we all know that the data is of DialogData interface 
+    type so it will contain name & animal -->
+<h3 mat-dialog-title>Hi {{data.name}}</h3>
+<div mat-dialog-content>
+    <p>What's your favorite animal?</p>
+    <mat-form-field>
+        <mat-label>Favorite Animal</mat-label>
+        <!-- snippet : a-ngM -->
+        <input matInput [(ngModel)]="data.animal">
+    </mat-form-field>
+</div>
+<div mat-dialog-actions>
+    <!-- for closing dialog -->
+    <button mat-button (click)="onNoClick()">No Thanks</button>
+    <!-- getting the user input on dialog when close -->
+    <button mat-button [mat-dialog-close]="data.animal">Ok</button>
+</div>
+
+

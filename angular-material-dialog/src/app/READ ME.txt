@@ -1,0 +1,138 @@
+reference : https://material.angular.io/components/dialog/api
+
+----------------------------------------------------------------------------------------------------------------------------
+
+install angular material
+    => npx ng add @angular/material
+create component for dialog
+    => npx ng g c component/dialog --skipTests -is 
+create interface for dialog data
+    => npx ng g i interface/dialogDate 
+import all the module we need 
+    => import {MatDialogModule} from '@angular/material/dialog';
+    => import {MatFormFieldModule} from '@angular/material/form-field';
+    => import {MatInputModule} from '@angular/material/input';
+    => import {MatButtonModule} from '@angular/material/button';
+    => import {FormsModule} from '@angular/forms'
+    => import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
+    => imports : [
+        MatDialogModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        FormsModule,
+        BrowserAnimationsModule
+    ]
+    => entryComponents : [DialogComponent]
+
+----------------------------------------------------------------------------------------------------------------------------
+
+on dialog-data.ts, (interface)
+
+    include the dialog data
+
+    name : string;
+    animal : string;
+
+----------------------------------------------------------------------------------------------------------------------------
+
+on app.component.html,
+
+    create ordered list which will take input from user and wil be displayed on dialog
+    also the user will input something on dialog and that something will be rendered 
+
+    <ol>
+        <li>
+            <mat-form-field>
+                <mat-label>What's your name?</mat-label>
+                <!-- snippet : a-ngM -->
+                <input matInput [(ngModel)]="name">
+            </mat-form-field>
+        </li>
+        <li>
+            <button
+                mat-raised-button
+                (click)="openDialog()"
+            >
+                Pick one
+            </button>
+        </li>
+        <!-- snippet : a-ngI -->
+        <!-- displaying the user input from dialog -->
+        <li *ngIf="animal">
+            you choose : <i>{{animal}}</i>
+        </li>
+    </ol>
+
+----------------------------------------------------------------------------------------------------------------------------
+
+on app.component.ts,
+
+    // create constructor and invoke MatDialog
+    constructor(public dialog : MatDialog){}    
+
+    //create variable for storage of the inputs from user
+    name : string;
+    animal : string;
+
+    //create the openDialog method that invokes MatDialog and the DialogComponent
+    openDialog(){
+        const dialogRef = this.dialog.open(DialogComponent, {
+        panelClass : 'panel',
+        // invoking the data : 1 from user input & other from dialog input
+        data : {name : this.name, animal : this.animal}
+        })
+
+        //subscribe to the user input data from dialog
+        dialogRef.afterClosed().subscribe(result => {
+        console.log(result);
+        //display the user input from dialog by setting it to storage variable
+        this.animal = result;
+        })
+    }
+
+----------------------------------------------------------------------------------------------------------------------------
+
+on dialog.component.ts,
+
+    //invoke the MatDialogRef of of this (DialogComponent) type
+    //and @Inject(MAT_DIALOG_DATA) for data injection 
+    //on AppComponent with DialogData interface type
+    constructor(
+        public dialogRef : MatDialogRef<DialogComponent>,
+        @Inject(MAT_DIALOG_DATA) public data : DialogData
+    ) { }
+
+    //for closing dialog
+    onNoClick(){
+        this.dialogRef.close();
+    }
+
+----------------------------------------------------------------------------------------------------------------------------
+
+on dialog.component.html,
+
+    displaying the user input name and requiring user input on dialog
+
+        <p>dialog works!</p>
+        <!-- we all know that the data is of DialogData interface 
+            type so it will contain name & animal -->
+        <h3 mat-dialog-title>Hi {{data.name}}</h3>
+        <div mat-dialog-content>
+            <p>What's your favorite animal?</p>
+            <mat-form-field>
+                <mat-label>Favorite Animal</mat-label>
+                <!-- snippet : a-ngM -->
+                <input matInput [(ngModel)]="data.animal">
+            </mat-form-field>
+        </div>
+        <div mat-dialog-actions>
+            <!-- for closing dialog -->
+            <button mat-button (click)="onNoClick()">No Thanks</button>
+            <!-- getting the user input on dialog when close -->
+            <button mat-button [mat-dialog-close]="data.animal">Ok</button>
+        </div>
+
+----------------------------------------------------------------------------------------------------------------------------
+
+

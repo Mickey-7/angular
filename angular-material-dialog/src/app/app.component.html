@@ -1,0 +1,22 @@
+<ol>
+    <li>
+        <mat-form-field>
+            <mat-label style="color: black;">What's your name?</mat-label>
+            <!-- snippet : a-ngM -->
+            <input matInput [(ngModel)]="name">
+        </mat-form-field>
+    </li>
+    <li>
+        <button
+            mat-raised-button
+            (click)="openDialog()"
+        >
+            Pick one
+        </button>
+    </li>
+    <!-- snippet : a-ngI -->
+    <!-- displaying the user input from dialog -->
+    <li *ngIf="animal">
+        you choose : <i>{{animal}}</i>
+    </li>
+</ol>
