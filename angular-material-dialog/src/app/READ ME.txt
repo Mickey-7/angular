@@ -223,8 +223,10 @@ adding another entry for interface to passs multiple data from dialog to another
     on app.component.html,
         <!-- snippet : a-ngI -->
         <!-- displaying the user input from dialog -->
-        <li *ngIf="object">
-            you choose : <i>{{object.animal}}</i>
-            you choose : <i>{{object.color}}</i>
-            you choose : <i>{{object.birthday}}</i>
+        <!-- <li *ngIf="animal">
+            you choose : <i>{{animal}}</i>
+        </li> -->
+
+        <li *ngIf="passedValues">
+            you choose : <i>{{passedValues | json}}</i>
         </li>
