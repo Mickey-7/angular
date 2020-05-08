@@ -9,12 +9,28 @@
         <!-- snippet : a-ngM -->
         <input matInput [(ngModel)]="data.animal">
     </mat-form-field>
+    <p>What's your favorite color?</p>
+    <mat-form-field>
+        <mat-label>Favorite Color</mat-label>
+        <!-- snippet : a-ngM -->
+        <input matInput [(ngModel)]="data.color">
+    </mat-form-field>
+    <p>What's your birthday?</p>
+    <mat-form-field>
+        <mat-label>Birthday</mat-label>
+        <!-- snippet : a-ngM -->
+        <input matInput [(ngModel)]="data.birthday">
+    </mat-form-field>
 </div>
 <div mat-dialog-actions>
     <!-- for closing dialog -->
     <button mat-button (click)="onNoClick()">No Thanks</button>
+    
     <!-- getting the user input on dialog when close -->
-    <button mat-button [mat-dialog-close]="data.animal">Ok</button>
+    <!-- <button mat-button [mat-dialog-close]="data.animal">Ok</button> -->
+
+    <!-- we use data only set to mat-dialog-close -->
+    <button mat-button [mat-dialog-close]="data">Ok</button>
 </div>
 
 

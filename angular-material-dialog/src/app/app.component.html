@@ -16,7 +16,12 @@
     </li>
     <!-- snippet : a-ngI -->
     <!-- displaying the user input from dialog -->
-    <li *ngIf="animal">
+    <!-- <li *ngIf="animal">
         you choose : <i>{{animal}}</i>
+    </li> -->
+
+    <li *ngIf="passedValues">
+        you choose : <i>{{passedValues | json}}</i>
     </li>
+
 </ol>

@@ -135,4 +135,96 @@ on dialog.component.html,
 
 ----------------------------------------------------------------------------------------------------------------------------
 
+adding another entry for interface to passs multiple data from dialog to another component (AppComponent)
 
+    on dialog-data.ts,
+        export interface DialogData {
+            name : string;
+            animal : string;
+            color : string;
+            birthday : string;
+        }
+
+
+    on dialog.component.html,
+        <p>dialog works!</p>
+        <!-- we all know that the data is of DialogData interface 
+            type so it will contain name & animal -->
+        <h3 mat-dialog-title>Hi {{data.name}}</h3>
+        <div mat-dialog-content>
+            <p>What's your favorite animal?</p>
+            <mat-form-field>
+                <mat-label>Favorite Animal</mat-label>
+                <!-- snippet : a-ngM -->
+                <input matInput [(ngModel)]="data.animal">
+            </mat-form-field>
+            <p>What's your favorite color?</p>
+            <mat-form-field>
+                <mat-label>Favorite Color</mat-label>
+                <!-- snippet : a-ngM -->
+                <input matInput [(ngModel)]="data.color">
+            </mat-form-field>
+            <p>What's your birthday?</p>
+            <mat-form-field>
+                <mat-label>Birthday</mat-label>
+                <!-- snippet : a-ngM -->
+                <input matInput [(ngModel)]="data.birthday">
+            </mat-form-field>
+        </div>
+        <div mat-dialog-actions>
+            <!-- for closing dialog -->
+            <button mat-button (click)="onNoClick()">No Thanks</button>
+            
+            <!-- getting the user input on dialog when close -->
+            <!-- <button mat-button [mat-dialog-close]="data.animal">Ok</button> -->
+
+            <!-- we use data only set to mat-dialog-close -->
+            <button mat-button [mat-dialog-close]="data">Ok</button>
+        </div>
+
+
+    on app.component.ts,
+        //create variable for storage of the inputs from user
+        name : string;
+        animal : string;
+        // addding storage variable for entry fields
+        color : string
+        birthday : string
+        //another storage for all the fields entry
+        passedValues : object
+
+        //create the openDialog method that invokes MatDialog and the DialogComponent
+        openDialog(){
+            const dialogRef = this.dialog.open(DialogComponent, {
+            panelClass : 'panel',
+            // invoking the data : 1 from user input & other from dialog input
+            // data : {name : this.name, animal : this.animal}
+
+            // invoking all the field entry for data
+            data : {
+                name : this.name, 
+                animal : this.animal, 
+                color : this.color , 
+                birthday : this.birthday
+            }
+            })
+
+            //subscribe to the user input data from dialog
+            dialogRef.afterClosed().subscribe(result => {
+            console.log(result);
+            //display the user input from dialog by setting it to storage variable
+            // this.animal = result;
+
+            // setting result to another storage of pbject type
+            this.passedValues = result;
+            })
+        }
+
+    on app.component.html,
+        <!-- snippet : a-ngI -->
+        <!-- displaying the user input from dialog -->
+        <li *ngIf="object">
+            you choose : <i>{{object.animal}}</i>
+            you choose : <i>{{object.color}}</i>
+            you choose : <i>{{object.birthday}}</i>
+        </li>
