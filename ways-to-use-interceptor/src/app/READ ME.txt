@@ -1,0 +1,521 @@
+reference : https://medium.com/angular-in-depth/top-10-ways-to-use-interceptors-in-angular-db450f8a62d6
+
+          : https://stackblitz.com/github/melcor76/interceptors?file=src%2Fapp%2Fapp-routing.module.ts
+
+fake online Rest API : https://jsonplaceholder.typicode.com/
+
+------------------------------------------------------------------------------------------------------------------------
+
+data flow :
+
+    -----------------                 ---------------------                   --------------------
+    |               |      req        |                   |        req        |                  |
+    |   Angular     |    ---->        |    Interceptors   |        ---->      |    Backend       |
+    |    App        |                 |                   |                   |                  |
+    |               |    <----        |                   |       <----       |                  |
+    |               |      resp       |                   |       resp        |                  |
+    -----------------                 ---------------------                   --------------------
+
+------------------------------------------------------------------------------------------------------------------------
+
+for debugging distinction on console if warn, error or just log
+    snippet : cw 
+        console.warn()
+    snippet : ce
+        console.error()
+    snippet : cl
+        console.log()
+
+------------------------------------------------------------------------------------------------------------------------
+
+10. URL
+    Manipulating the URL. Sounds a bit risky when I say it out loud but let’s see how easily we can do it in an interceptor.
+    We could, for example, want to change HTTP to HTTPS.
+    It’s as easy as cloning the request and replacing http:// with https:// at the same time. 
+    Then we send the cloned, HTTPS request to the next handler.
+
+    --------------------------------------------------------------------------------------------------------------------
+
+    create component
+        => npx ng g c component/manipulate-url --skipTests -is -it
+    create interceptor
+        => npx ng g interceptor interceptor/manipulate-url --skipTests
+    import HttpClientModule on app.module.ts
+        => import { HttpClientModule } from '@angular/common/http';
+        => imports : [ HttpClientModule ]
+    import interceptor on app.module.ts
+        => import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http"
+        => import { ManipulateURLInterceptor } from './interceptor/manipulate-url.interceptor'
+        -> providers : [
+            {
+                provide : HTTP_INTERCEPTORS,
+                useClass : ManipulateURLInterceptor,
+                multi : true
+            }
+        ]
+    
+    --------------------------------------------------------------------------------------------------------------------
+
+    In the example, we set the URL with HTTP, but when we check the request, we can see that it changed to HTTPS.
+
+    on manipulate-url.interceptor.ts,
+        //check if the request url includes todos/1
+        if (!request.url.includes("todos/1")) {
+            //snippet : ce
+            console.error("invalid url");
+            //handle next request
+            return next.handle(request);
+        }
+
+        //snippet : cw 
+        console.warn("HttpInterceptor");
+        //clone request and replace http:// with https:// at the same time
+        const httpClone = request.clone({
+            url : request.url.replace("http://", "https://")
+        })
+        
+        //return the cloned request by handling it on the next request
+        return next.handle(httpClone);
+    
+    --------------------------------------------------------------------------------------------------------------------
+
+    on manipulate-url.component.ts,
+        //invoke HttpClient
+        constructor(private http : HttpClient) { }
+
+        //create response variable with Observable type any which will store our response
+        response : Observable<any>
+
+        //create the request method which should include part of the 
+        //url from interceptor and invoke the HttpClient get method set to response
+        request(){
+            const url = "http://jsonplaceholder.typicode.com/todos/1";
+            this.response = this.http.get(url);
+        }
+
+    NOTE : need to use async on <pre> tag to display correctly as we set the response to http.get() method     
+
+    --------------------------------------------------------------------------------------------------------------------
+
+    template :
+        <h3>Manipulate URL</h3>
+        <hr>
+        <button (click)="request()">Submit Request</button>
+        <pre>{{ response | async | json }}</pre>
+
+    --------------------------------------------------------------------------------------------------------------------
+
+    Automagic https, why is this not higher up? Well, normally you would set up these things on your web server. 
+    Or if you want to switch between HTTP and HTTPS in development you could use the CLI:
+
+    on DevTools 
+        -> Network 
+            -> Name : 1 
+                -> Headers : General 
+                    -> Request URL: https://jsonplaceholder.typicode.com/todos/1
+
+    --------------------------------------------------------------------------------------------------------------------
+
+    error encountered :
+
+        not getting the right output once request is submitted
+
+            {
+            "_isScalar": false,
+            "source": {
+                "_isScalar": false,
+                "source": {
+                "_isScalar": false,
+                "source": {
+                    "_isScalar": false
+                },
+                "operator": {
+                    "concurrent": 1
+                }
+                },
+                "operator": {}
+            },
+            "operator": {}
+            }
+
+        solution : response and async must be next to each other with pipe between
+                   followed by pipe then json for it to diplay like below. Note <pre> tag
+
+                        <pre>{{ response | async |json }}<pre>
+
+                        {
+                            "userId": 1,
+                            "id": 1,
+                            "title": "delectus aut autem",
+                            "completed": false
+                        }
+
+------------------------------------------------------------------------------------------------------------------------
+
+9. Loader
+    Everyone wants to see the spinning wheel of fortune when we are waiting for a response. 
+
+    --------------------------------------------------------------------------------------------------------------------
+
+    create component
+        => npx ng g c component/loader --skipTests -is -it
+    create interceptor
+        => npx ng g interceptor interceptor/loader --skipTests
+    create service
+        => npx ng g s service/loader --skipTests
+    import HttpClientModule on app.module.ts
+        => import { HttpClientModule } from '@angular/common/http';
+        => imports : [ HttpClientModule ]
+    import interceptor on app.module.ts
+        => import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http"
+        => import { LoaderInterceptor } from './interceptor/loader.interceptor'
+        => providers : [
+            {
+                provide : HTTP_INTERCEPTORS,
+                useClass : LoaderInterceptor,
+                multi : true
+            }
+        ]
+ 
+    --------------------------------------------------------------------------------------------------------------------
+
+    What if I said we could set it up centrally in an interceptor so that we show a loader whenever there are active requests.    
+    For this, we can use a loader service that has a show and a hide function. 
+    Before we handle the request, we call the show method and through finalize we can hide the loader when done.
+
+    on loader.service.ts,
+        //create showLoader set to false
+        showLoader = false;
+
+        //create function to toggle (show & hide) on showLoader
+        show(){
+            this.showLoader = true;
+        }
+        hide(){
+            this.showLoader = false;
+        }
+
+    --------------------------------------------------------------------------------------------------------------------
+
+    This example is simplified, and in a real solution, we should take into account that there could be multiple HTTP calls intercepted. 
+    This could be solved by having a counter for requests (+1) and responses (-1).
+    Also, I added a delay so that we have time to see the loader.
+
+    on loader.interceptor.ts,
+        import { delay, finalize } from "rxjs/operators";
+
+        // invoke Injector to get the LoaderService
+        constructor(private injector : Injector) {}
+
+        //check for the url
+        if (!request.url.includes("albums")) {
+            //snippet : ce
+            console.error("invalid url");
+            //handle next request
+            return next.handle(request)
+        }
+
+        //snippet : cw 
+        console.warn("HttpInterceptor");
+        //invoking injector with .get() method for LoaderService
+        const loaderService = this.injector.get(LoaderService);
+        //invoking the show() method from LoaderService
+        loaderService.show();
+
+        //return request by next.handle() with pipe that contains some delay
+        return next.handle(request)
+        .pipe(
+            delay(3000),
+            // invoking hide() method from LoaderService
+            finalize( () => loaderService.hide() )
+        );
+
+    --------------------------------------------------------------------------------------------------------------------
+
+    on loader.component.ts,
+        //create response storage
+        response
+
+        //invoke HttpClient & LoaderService
+        constructor(private http : HttpClient, public loaderService : LoaderService) { }
+
+        //create the request method which should include part of the 
+        //url from interceptor and invoke the HttpClient get method
+        request(){
+            const url = "https://jsonplaceholder.typicode.com/albums/1";
+            this.http.get(url).subscribe(data=>(
+            // set the response to subscribe data
+            this.response = data
+            ));
+        }
+
+    NOTE : since response has no Observable type and was subscribe -> we dont need to use async on <pre> tag
+
+    --------------------------------------------------------------------------------------------------------------------
+
+    template :
+        <h3>Loader</h3>
+        <hr>
+        <button (click)="request()">Submit Request</button>
+        <pre>{{ response | json }}</pre>
+        <!-- invoking loaderService with showLoader initially set to false  -->
+        <!-- snippet : a-ngI -->
+        <div *ngIf="loaderService.showLoader" class="loader"></div>
+
+    --------------------------------------------------------------------------------------------------------------------
+
+    styles :
+        .loader {
+            border: 16px solid #f3f3f3; /* Light grey */
+            border-top: 16px solid #3498db; /* Blue */
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+            animation: spin 2s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% {
+            transform: rotate(0deg);
+            }
+            100% {
+            transform: rotate(360deg);
+            }
+        }
+
+------------------------------------------------------------------------------------------------------------------------
+
+6. Notifications
+    Here we have many different cases where we could show messages.
+
+    --------------------------------------------------------------------------------------------------------------------
+    
+    npm install ngx-toastr 
+    npm install @angular/animations 
+    create component
+        => npx ng g c component/notify --skipTests -is -it
+    create interceptor
+        => npx ng g interceptor interceptor/notify --skipTests
+
+    --------------------------------------------------------------------------------------------------------------------
+
+    on angular.json
+
+        "styles": [
+           "src/styles.css",
+           "node_modules/ngx-toastr/toastr.css"
+        ]
+
+    --------------------------------------------------------------------------------------------------------------------
+
+    on app.module.ts,
+        import { HttpClientModule } from '@angular/common/http';
+        import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http"
+        import { NotifyInterceptor } from './interceptor/manipulate-url.interceptor'
+        import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+        import { ToastrModule } from 'ngx-toastr';
+
+            imports: [
+                HttpClientModule,
+                BrowserAnimationsModule,
+                ToastrModule.forRoot()
+            ],
+            providers : [
+                {
+                    provide : HTTP_INTERCEPTORS,
+                    useClass : NotifyInterceptor,
+                    multi : true
+                }
+            ]
+
+    --------------------------------------------------------------------------------------------------------------------
+    
+    on notify.interceptor.ts,
+        invoke ToastrModule on constructor
+            //invoke ToastrService
+            constructor(private toastr : ToastrService) {}
+
+        In my example, I show “Object created” every time we get a 201 created status back from the server.
+
+            //check url
+            if (!request.url.includes("/posts")) {
+            console.error("invalid url");
+            return next.handle(request);
+            
+            }
+            
+            //
+            console.warn("HttpInterceptor");
+
+            return next.handle(request)
+            .pipe(
+                //tap. tap is a RxJS pipeable operator that returns identical Observable as source Observable 
+                //and can be used to perform side effect such as logging each values emitted by source Observable 
+                //use tap with input param event of HttpEvent type with any 
+                tap((event : HttpEvent<any>) => {
+                //check if its a valid instanceof HttpResponse 
+                //and is a valid status of HttpEvent like below
+                if (event instanceof HttpResponse && event.status === 201) {
+                    //invoke toaster
+                    this.toastr.success("Object created")
+                }
+                })
+            )
+
+    --------------------------------------------------------------------------------------------------------------------
+
+    on notify.component.ts,
+        invoke HttpClient on constructor and create storage of Observable type with <any> for response storage
+            //invoke HttpClient
+            constructor(private http : HttpClient) { }
+
+            //create response as Observabletype with <any> for response storage
+            response : Observable<any>;
+
+            //create submit method that set the response to http.post method
+            submit(){
+                //creating obejct to be posted
+                var body = {
+                title : "foo",
+                body : "bar",
+                useId : 1
+                };
+                //define url and invoke the response then set it to http 
+                //post together with the url & body to be posted
+                const url = "https://jsonplaceholder.typicode.com/posts";
+                this.response = this.http.post(url,body);
+            }
+
+    --------------------------------------------------------------------------------------------------------------------
+
+    on style,
+        <h3>Notify - Toastr</h3>
+        <hr>
+        <button (click)="submit()">Submit Post Request</button>
+        <pre>{{ response | async | json }}</pre>
+
+------------------------------------------------------------------------------------------------------------------------
+
+5. Errors - we will make the URL wrong to trigger the error
+    There are two use cases for errors that we can implement in the interceptor.
+    First, we can retry the HTTP call. For example, network interruptions are frequent in mobile scenarios, and trying again may produce a successful result. Things to consider here are how many times to retry before giving up. And should we wait before retrying or do it immediately?
+    For this, we use the retry operator from RxJS to resubscribe to the observable. Re-subscribing to the result of an HttpClient method call has the effect of reissuing the HTTP request.
+    More advanced examples of this sort of behavior:
+        Retry an observable sequence on error based on custom criteria
+        Power of RxJS when using exponential backoff
+    Secondly, we can check the status of the exception. And depending on the status, we can decide what we should do.
+    --------------------------------------------------------------------------------------------------------------------
+
+    npm install ngx-toastr 
+    npm install @angular/animations 
+    create component
+        => npx ng g c component/notify --skipTests -is -it
+    create interceptor
+        => npx ng g interceptor interceptor/notify --skipTests
+
+    --------------------------------------------------------------------------------------------------------------------
+
+    on angular.json
+
+        "styles": [
+           "src/styles.css",
+           "node_modules/ngx-toastr/toastr.css"
+        ]
+
+    --------------------------------------------------------------------------------------------------------------------
+        
+    on app.module.ts,
+        import { HttpClientModule } from '@angular/common/http';
+        import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http"
+        import { ErrorInterceptor } from './interceptor/manipulate-url.interceptor'
+        import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+        import { ToastrModule } from 'ngx-toastr';
+
+            imports: [
+                HttpClientModule,
+                BrowserAnimationsModule,
+                ToastrModule.forRoot()
+            ],
+            providers : [
+                {
+                    provide : HTTP_INTERCEPTORS,
+                    useClass : ErrorInterceptor,
+                    multi : true
+                }
+            ]
+
+    --------------------------------------------------------------------------------------------------------------------
+
+    on error.interceptor.ts,
+        invoke ToastrModule on constructor
+            //invoke ToastrService
+            constructor(private toastr : ToastrService) {}
+
+        In this example, we retry twice before checking the error status. And if the status is not 401, we show the error as a popup (toastr). 
+        And all errors are then re-thrown for further handling.
+
+            //check url
+            if (!request.url.includes("/error")) {
+                console.error("invalid url");
+                return next.handle(request);
+            }
+            
+            //
+            console.log("HttpInterceptor");
+
+            return next.handle(request)
+            .pipe(
+                //invoke retry
+                retry(2),
+                //catchError is the pipeable operator and it is used within pipe function of Observable . 
+                //The parameter of catchError is a function that takes error as argument and returns Observable instance
+                //use catchError with input param of error with type HttpErrorResponse  
+                catchError( (error : HttpErrorResponse) => {
+                //check if error status is not 401
+                //invoke toastr with error message
+                if (error.status !== 401) {
+                    // 401 handled in auth.interceptor
+                    this.toastr.error(error.message);
+                }
+                //RxJS throwError operator is used to create an Observable that emits an error notification immediately and no element. 
+                //throwError can be used composing with other Observable , such as in a mergeMap , switchMap etc
+                return throwError(error)
+                })
+            ) 
+
+    --------------------------------------------------------------------------------------------------------------------
+    
+    on error.component.ts,
+        invoke HttpClient on constructor and create storage of Observable type with <any> for response storage
+            //invoke HttpClient
+            constructor(private http : HttpClient) { }
+
+        create submit method with http invoke and subscribe
+            run() {
+                this.http.get(paths.error).subscribe();
+            }
+
+    --------------------------------------------------------------------------------------------------------------------
+
+    on style,
+        <h3>Notify - Toastr</h3>
+        <hr>
+        <button (click)="submit()">Submit Post Request</button>
+        <pre>{{ response | async | json }}</pre>
+
+------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
