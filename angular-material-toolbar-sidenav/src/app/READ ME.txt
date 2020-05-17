@@ -1,0 +1,147 @@
+reference : https://stackblitz.com/angular/nnkgeaenggg?file=src%2Fapp%2Fsidenav-open-close-example.ts
+
+-----------------------------------------------------------------------------------------------------------------------
+
+install angular material
+    npx ng add @angular/material
+
+-----------------------------------------------------------------------------------------------------------------------
+
+generate components for the sidnav options
+    npx ng g c components/option1 --skipTests -is
+    npx ng g c components/option2 --skipTests -is
+    npx ng g c components/option3 --skipTests -is
+    npx ng g c components/option4 --skipTests -is
+    npx ng g c components/option5 --skipTests -is
+    npx ng g c components/option6 --skipTests -is
+    npx ng g c components/option7 --skipTests -is
+
+-----------------------------------------------------------------------------------------------------------------------
+
+include all the components on app-routing.module.ts
+
+    const routes: Routes = [
+            { path: "", component: Option1Component },
+            { path: "opt2", component: Option2Component },
+            { path: "opt3", component: Option3Component },
+            { path: "opt4", component: Option4Component },
+            { path: "opt5", component: Option5Component },
+            { path: "opt6", component: Option6Component },
+            { path: "opt7", component: Option7Component },
+    ];
+
+-----------------------------------------------------------------------------------------------------------------------
+
+import the needed modules on angular-material on app.module.ts
+
+    //
+    import { MatToolbarModule } from "@angular/material/toolbar";
+    import { MatIconModule } from "@angular/material/icon";
+    import { MatSidenavModule } from "@angular/material/sidenav";
+    import { MatListModule } from "@angular/material/list";
+
+    imports: [
+        //
+        MatToolbarModule,
+        MatIconModule,
+        MatSidenavModule,
+        MatListModule,
+    ],
+
+-----------------------------------------------------------------------------------------------------------------------
+
+on app.component.html
+
+    create toolbar first with icon linking the sidenav container in it
+
+    <mat-toolbar>
+        <!-- clickable function snav for link on the sidenav below-->
+        <button mat-button (click)="snav.toggle()">
+            <mat-icon>menu</mat-icon>
+        </button>
+        <h3>Angular Material Toolbar & Sidenav</h3>
+    </mat-toolbar>
+
+    create the sidenav container and its content
+    
+    <!-- now for the sidenav -->
+    <mat-sidenav-container>
+    <!-- we can have side for the mode and push 
+    which is a combination of over and side -->
+    <mat-sidenav #snav mode="over">
+        <mat-nav-list>
+        <!-- snippet : a-r -->
+        <a
+            mat-list-item
+            [routerLink]="['/']"
+            routerLinkActive="router-link-active"
+        >
+            Option1
+        </a>
+        <a
+            mat-list-item
+            [routerLink]="['/opt2']"
+            routerLinkActive="router-link-active"
+        >
+            Option2
+        </a>
+        <a
+            mat-list-item
+            [routerLink]="['/opt3']"
+            routerLinkActive="router-link-active"
+        >
+            Option3
+        </a>
+        <a
+            mat-list-item
+            [routerLink]="['/opt4']"
+            routerLinkActive="router-link-active"
+        >
+            Option4
+        </a>
+        <a
+            mat-list-item
+            [routerLink]="['/opt5']"
+            routerLinkActive="router-link-active"
+        >
+            Option5
+        </a>
+        <a
+            mat-list-item
+            [routerLink]="['/opt6']"
+            routerLinkActive="router-link-active"
+        >
+            Option6
+        </a>
+        <a
+            mat-list-item
+            [routerLink]="['/opt7']"
+            routerLinkActive="router-link-active"
+        >
+            Option7
+        </a>
+        </mat-nav-list>
+    </mat-sidenav>
+
+    <!-- creating sidenav content rendering when done selecting option -->
+    <mat-sidenav-content>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+    </mat-sidenav-container>
+
+-----------------------------------------------------------------------------------------------------------------------
+
+add some lorem text on the option components 
+
+    type lorem100 then tab to generate 100 words from lorem
+    also wrap all the html content on div tag
+
+-----------------------------------------------------------------------------------------------------------------------
+
+on style.css
+
+    /* added for globally making the height all equal for the component */
+    /* we need to wrap all the html component content on div */
+    div {
+        height: 100vh;
+    }

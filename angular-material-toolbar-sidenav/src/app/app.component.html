@@ -1,0 +1,72 @@
+<mat-toolbar>
+  <!-- clickable function snav for link on the sidenav below-->
+  <button mat-button (click)="snav.toggle()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <h3>Angular Material Toolbar & Sidenav</h3>
+</mat-toolbar>
+
+<!-- now for the sidenav -->
+<mat-sidenav-container>
+  <!-- we can have side for the mode and push 
+    which is a combination of over and side -->
+  <mat-sidenav #snav mode="over">
+    <mat-nav-list>
+      <!-- snippet : a-r -->
+      <a
+        mat-list-item
+        [routerLink]="['/']"
+        routerLinkActive="router-link-active"
+      >
+        Option1
+      </a>
+      <a
+        mat-list-item
+        [routerLink]="['/opt2']"
+        routerLinkActive="router-link-active"
+      >
+        Option2
+      </a>
+      <a
+        mat-list-item
+        [routerLink]="['/opt3']"
+        routerLinkActive="router-link-active"
+      >
+        Option3
+      </a>
+      <a
+        mat-list-item
+        [routerLink]="['/opt4']"
+        routerLinkActive="router-link-active"
+      >
+        Option4
+      </a>
+      <a
+        mat-list-item
+        [routerLink]="['/opt5']"
+        routerLinkActive="router-link-active"
+      >
+        Option5
+      </a>
+      <a
+        mat-list-item
+        [routerLink]="['/opt6']"
+        routerLinkActive="router-link-active"
+      >
+        Option6
+      </a>
+      <a
+        mat-list-item
+        [routerLink]="['/opt7']"
+        routerLinkActive="router-link-active"
+      >
+        Option7
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <!-- creating sidenav content rendering when done selecting option -->
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
