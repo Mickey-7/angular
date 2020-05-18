@@ -1,0 +1,27 @@
+<!-- create toolbar with icon linking the sidenav -->
+<mat-toolbar color="primary">
+  <!-- the clickable function is coneected to #snav below -->
+  <button mat-button (click)="snav.toggle()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <h3>Angular Animation Utility Library</h3>
+</mat-toolbar>
+
+<!-- creating sidenav and its content -->
+<mat-sidenav-container>
+  <mat-sidenav #snav mode="over">
+    <mat-nav-list>
+      <!-- snippet : a-r -->
+      <a
+        mat-list-item
+        [routerLink]="['/']"
+        routerLinkActive="router-link-active"
+        >Home</a
+      >
+    </mat-nav-list>
+  </mat-sidenav>
+  <!-- rendering the content  -->
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

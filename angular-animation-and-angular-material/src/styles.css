@@ -1,0 +1,17 @@
+/* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+/* make all the component consume the vh by wrapping 
+all the html content on div with wrapper class*/
+
+.wrapper {
+  height: 100vh;
+}
