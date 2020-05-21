@@ -1,0 +1,111 @@
+<mat-accordion>
+  <!-- the <mat-expansion-panel> tag requires import { BrowserAnimationsModule }
+     from "@angular/platform-browser/animations"; on app.module.ts -->
+  <!-- if method from .ts setStep(index) is 0 then the panel will expand -->
+  <mat-expansion-panel (opened)="setStep(0)" [expanded]="step === 0">
+    <!-- create header for expansion panel -->
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Personal data
+        <mat-icon style="padding-left: 7px;">account_circle</mat-icon>
+      </mat-panel-title>
+      <mat-panel-description>
+        Type your name and age
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <!-- create input fields for expansion panel -->
+    <!-- also invoking  formGroup -->
+    <!-- snippet : a-formG -->
+    <form [formGroup]="form">
+      <mat-form-field>
+        <mat-label>First name</mat-label>
+        <!-- snippet : a-formC -->
+        <input matInput formControlName="firstName" />
+      </mat-form-field>
+      <mat-form-field style="padding-left: 20px;">
+        <mat-label>Age</mat-label>
+        <!-- snippet : a-formC -->
+        <input matInput formControlName="age" />
+      </mat-form-field>
+    </form>
+
+    <!-- create action row to go to next step -->
+    <mat-action-row>
+      <button mat-button (click)="nextStep()">Next</button>
+    </mat-action-row>
+  </mat-expansion-panel>
+
+  <!--///////////////////////////////////////////////////////////////////////////////////////// -->
+
+  <!-- for the next expansion panel -->
+  <!-- if method from .ts setStep(index) is 1 then the panel will expand -->
+  <mat-expansion-panel (opened)="setStep(1)" [expanded]="step === 1">
+    <!-- create header for expansion panel -->
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Destination
+        <mat-icon style="padding-left: 7px;">map</mat-icon>
+      </mat-panel-title>
+      <mat-panel-description>
+        Type the country name
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <!-- create input fields -->
+    <!-- also invoking  formGroup -->
+    <!-- snippet : a-formG -->
+    <form [formGroup]="form1">
+      <mat-form-field>
+        <mat-label>Country</mat-label>
+        <!-- snippet : a-formC -->
+        <input matInput formControlName="country" />
+      </mat-form-field>
+    </form>
+
+    <!-- create action row to go to next step -->
+    <mat-action-row>
+      <button mat-button (click)="prevStep()">Back</button>
+      <button mat-button (click)="nextStep()">Next</button>
+    </mat-action-row>
+  </mat-expansion-panel>
+
+  <!--///////////////////////////////////////////////////////////////////////////////////////// -->
+
+  <!-- for the next expansion panel -->
+  <!-- if method from .ts setStep(index) is 2 then the panel will expand -->
+  <mat-expansion-panel (opened)="setStep(2)" [expanded]="step === 2">
+    <!-- create header for expansion panel -->
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Location of the trip
+      </mat-panel-title>
+      <mat-panel-description>
+        Inform the location you wish to travel
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <!-- create input fields -->
+    <!-- also invoking  formGroup -->
+    <!-- snippet : a-formG -->
+    <form [formGroup]="form2">
+      <mat-form-field>
+        <mat-label>Location</mat-label>
+        <!-- snippet : a-formC -->
+        <input matInput formControlName="location" />
+      </mat-form-field>
+    </form>
+
+    <!-- create action row to go to next step -->
+    <mat-action-row>
+      <button mat-button (click)="prevStep()">Back</button>
+      <button mat-button (click)="submit()">Submit</button>
+    </mat-action-row>
+  </mat-expansion-panel>
+</mat-accordion>
+
+<h3>Displaying input values</h3>
+
+<p>{{ values | json }}</p>
+<p>{{ values1 | json }}</p>
+<p>{{ values2 | json }}</p>

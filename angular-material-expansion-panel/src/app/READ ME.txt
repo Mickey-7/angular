@@ -1,0 +1,229 @@
+reference : https://material.angular.io/components/expansion/examples
+
+-----------------------------------------------------------------------------
+
+install angular-material
+    npx ng add @angular/material
+
+-----------------------------------------------------------------------------
+
+import all the needed modules
+
+    //
+    import { MatExpansionModule } from "@angular/material/expansion";
+    import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+    import { MatFormFieldModule } from "@angular/material/form-field";
+    import { MatInputModule } from "@angular/material/input";
+    import { ReactiveFormsModule } from "@angular/forms";
+    import { MatButtonModule } from "@angular/material/button";
+    import { MatIconModule } from "@angular/material/icon";
+
+    @NgModule({
+        imports: [
+            //
+            MatExpansionModule,
+            BrowserAnimationsModule,
+            MatFormFieldModule,
+            MatInputModule,
+            ReactiveFormsModule,
+            MatButtonModule,
+            MatIconModule,
+        ]
+    })
+
+-----------------------------------------------------------------------------
+
+on app.component.ts
+
+    // var for current step value storage
+    step: number;
+    // for the step to increment
+    nextStep() {
+      this.step++;
+      console.log(this.step);
+    }
+    // for the step to decrement
+    prevStep() {
+      this.step--;
+      console.log(this.step);
+    }
+    // to link the current step # from .ts to .html
+    // to be able to change the panel to be expanded
+    setStep(index: number) {
+      this.step = index;
+    }
+
+    // handle inmput field values and display as JSON
+    form = new FormGroup({
+      firstName: new FormControl("", [Validators.required]),
+      age: new FormControl("", [Validators.required]),
+    });
+    form1 = new FormGroup({
+      country: new FormControl("", [Validators.required]),
+    });
+    form2 = new FormGroup({
+      location: new FormControl("", [Validators.required]),
+    });
+
+    values: any;
+    values1: any;
+    values2: any;
+    errorMsg = "";
+
+    submit() {
+      if (this.form.valid) {
+        console.log(this.form.value);
+        console.log(this.form1.value);
+        console.log(this.form2.value);
+
+        this.values = this.form.value;
+        this.values1 = this.form1.value;
+        this.values2 = this.form2.value;
+
+        JSON.stringify(this.values);
+        JSON.stringify(this.values1);
+        JSON.stringify(this.values2);
+      } else {
+        console.log("empty field");
+        this.errorMsg = "Empty Field Exist";
+      }
+    }
+
+-----------------------------------------------------------------------------
+
+on app.components.html
+
+    <mat-accordion>
+
+      <!-- the <mat-expansion-panel> tag requires import { BrowserAnimationsModule }
+         from "@angular/platform-browser/animations"; on app.module.ts -->
+      <!-- if method from .ts setStep(index) is 0 then the panel will expand -->
+      <mat-expansion-panel (opened)="setStep(0)" [expanded]="step === 0">
+        <!-- create header for expansion panel -->
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Personal data
+            <mat-icon style="padding-left: 7px;">account_circle</mat-icon>
+          </mat-panel-title>
+          <mat-panel-description>
+            Type your name and age
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <!-- create input fields for expansion panel -->
+        <!-- also invoking  formGroup -->
+        <!-- snippet : a-formG -->
+        <form [formGroup]="form">
+          <mat-form-field>
+            <mat-label>First name</mat-label>
+            <!-- snippet : a-formC -->
+            <input matInput formControlName="firstName" />
+          </mat-form-field>
+          <mat-form-field style="padding-left: 20px;">
+            <mat-label>Age</mat-label>
+            <!-- snippet : a-formC -->
+            <input matInput formControlName="age" />
+          </mat-form-field>
+        </form>
+
+        <!-- create action row to go to next step -->
+        <mat-action-row>
+          <button mat-button (click)="nextStep()">Next</button>
+        </mat-action-row>
+      </mat-expansion-panel>
+
+  
+      <!--///////////////////////////////////////////////////////////////////////////////////////// -->
+
+      <!-- for the next expansion panel -->
+      <!-- if method from .ts setStep(index) is 1 then the panel will expand -->
+      <mat-expansion-panel (opened)="setStep(1)" [expanded]="step === 1">
+        <!-- create header for expansion panel -->
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Destination
+            <mat-icon style="padding-left: 7px;">map</mat-icon>
+          </mat-panel-title>
+          <mat-panel-description>
+            Type the country name
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <!-- create input fields -->
+        <!-- also invoking  formGroup -->
+        <!-- snippet : a-formG -->
+        <form [formGroup]="form1">
+          <mat-form-field>
+            <mat-label>Country</mat-label>
+            <!-- snippet : a-formC -->
+            <input matInput formControlName="country" />
+          </mat-form-field>
+        </form>
+
+        <!-- create action row to go to next step -->
+        <mat-action-row>
+          <button mat-button (click)="prevStep()">Back</button>
+          <button mat-button (click)="nextStep()">Next</button>
+        </mat-action-row>
+      </mat-expansion-panel>
+
+      
+      <!--///////////////////////////////////////////////////////////////////////////////////////// -->
+
+      <!-- for the next expansion panel -->
+      <!-- if method from .ts setStep(index) is 2 then the panel will expand -->
+      <mat-expansion-panel (opened)="setStep(2)" [expanded]="step === 2">
+        <!-- create header for expansion panel -->
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Location of the trip
+          </mat-panel-title>
+          <mat-panel-description>
+            Inform the location you wish to travel
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <!-- create input fields -->
+        <!-- also invoking  formGroup -->
+        <!-- snippet : a-formG -->
+        <form [formGroup]="form2">
+          <mat-form-field>
+            <mat-label>Location</mat-label>
+            <!-- snippet : a-formC -->
+            <input matInput formControlName="location" />
+          </mat-form-field>
+        </form>
+
+        <!-- create action row to go to next step -->
+        <mat-action-row>
+          <button mat-button (click)="prevStep()">Back</button>
+          <button mat-button (click)="submit()">Submit</button>
+        </mat-action-row>
+      </mat-expansion-panel>
+    </mat-accordion>
+
+    <h3>Displaying input values</h3>
+
+    <p>{{ values | json }}</p>
+    <p>{{ values1 | json }}</p>
+    <p>{{ values2 | json }}</p>
+
+-----------------------------------------------------------------------------
+
+need to import BrowserAnimationsModule like below on solution when using expansion panel
+
+    [expanded] when satisfied will expand the panel on components.html file
+
+-----------------------------------------------------------------------------
+
+error encountered
+
+    core.js:6185 ERROR Error: Found the synthetic listener @expansionHeight.start. 
+    Please include either "BrowserAnimationsModule" or "NoopAnimationsModule" in your application.
+
+solution :
+
+    on app.module.ts 
+        import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+
+
