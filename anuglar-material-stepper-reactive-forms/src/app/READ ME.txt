@@ -2,6 +2,27 @@ reference : https://material.angular.io/components/stepper/examples
 
 -----------------------------------------------------------------------------
 
+import all the nedded modules from angular-material
+  //
+  import { ReactiveFormsModule } from "@angular/forms";
+  import { MatStepperModule } from "@angular/material/stepper";
+  import { MatFormFieldModule } from "@angular/material/form-field";
+  import { MatInputModule } from "@angular/material/input";
+  import { MatButtonModule } from "@angular/material/button";
+
+  @NgModule({
+    imports: [
+      //
+      ReactiveFormsModule,
+      MatStepperModule,
+      MatFormFieldModule,
+      MatInputModule,
+      MatButtonModule,
+    ]
+  })
+
+-----------------------------------------------------------------------------
+
 app.component.html
 
   <!-- the #stepper below pertian to the stepper.reset() -->
