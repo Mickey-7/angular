@@ -1,0 +1,44 @@
+<h3>Datepicker</h3>
+<mat-form-field style="background-color: cornflowerblue;">
+  <mat-label>Choose a date</mat-label>
+  <!-- invoking datepicker on input tag -->
+  <!-- adding (dateInput) event to get the selected date -->
+  <input matInput [matDatepicker]="picker1" (dateInput)="selectDate($event)" />
+  <!-- matSuffix is for the calendar icon  -->
+  <!-- [for] = "picker1" is for the calendar to show up -->
+  <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+  <mat-datepicker #picker1></mat-datepicker>
+</mat-form-field>
+
+<p>Chosen date :</p>
+<h3>{{ selectedDate }}</h3>
+
+<!-- /////////////////////////////////////////////////////////////////////////////////////// -->
+
+<!-- button with tooltip -->
+<h3>Button with tooltip</h3>
+<button
+  matTooltip="click and it will add count to the badge"
+  mat-button
+  (click)="addCount()"
+>
+  click me!
+</button>
+
+<p>Button with badge</p>
+<!-- dynamically change the count from .ts to .html -->
+<!-- using [] on [matBadge]= "count" where count is defined on .ts file -->
+<button [matBadge]="count" mat-raised-button>Action</button>
+<br />
+<br />
+<!-- cause hard coded example would be matBagde="7" -->
+<button matBadge="7" mat-raised-button>Action</button>
+
+<p>Icon with badge</p>
+<!-- dynamically change the count from .ts to .html -->
+<!-- using [] on [matBadge]= "count" where count is defined on .ts file -->
+<mat-icon [matBadge]="count">home</mat-icon>
+<br />
+<br />
+<!-- cause hard coded example would be matBagde="7" -->
+<mat-icon matBadge="7">home</mat-icon>

@@ -1,0 +1,133 @@
+reference : https://material.angular.io/components/datepicker/api
+          : https://material.angular.io/components/badge/examples
+          : https://material.angular.io/components/tooltip/examples
+
+---------------------------------------------------------------------------------
+
+import all the needed modules 
+
+    //
+    import { MatFormFieldModule } from "@angular/material/form-field";
+    import { MatInputModule } from "@angular/material/input";
+    import { MatDatepickerModule } from "@angular/material/datepicker";
+    import { MatNativeDateModule } from "@angular/material/core";
+    import { MatTooltipModule } from "@angular/material/tooltip";
+    import { MatButtonModule } from "@angular/material/button";
+    import { MatBadgeModule } from "@angular/material/badge";
+    import { MatIconModule } from "@angular/material/icon";
+
+    @NgModule({
+        imports: [
+            //
+            MatFormFieldModule,
+            MatInputModule,
+            MatDatepickerModule,
+            MatNativeDateModule,
+            MatTooltipModule,
+            MatButtonModule,
+            MatBadgeModule,
+            MatIconModule,
+        ]
+    })
+
+---------------------------------------------------------------------------------
+
+on app.component.html
+
+    <h3>Datepicker</h3>
+    <mat-form-field style="background-color: cornflowerblue;">
+      <mat-label>Choose a date</mat-label>
+      <!-- invoking datepicker on input tag -->
+      <!-- adding (dateInput) event to get the selected date -->
+      <input matInput [matDatepicker]="picker1" (dateInput)="selectDate($event)" />
+      <!-- matSuffix is for the calendar icon  -->
+      <!-- [for] = "picker1" is for the calendar to show up -->
+      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+      <mat-datepicker #picker1></mat-datepicker>
+    </mat-form-field>
+
+    <p>Chosen date :</p>
+    <h3>{{ selectedDate }}</h3>
+
+    <!-- /////////////////////////////////////////////////////////////////////////////////////// -->
+
+    <!-- button with tooltip -->
+    <h3>Button with tooltip</h3>
+    <button
+      matTooltip="click and it will add count to the badge"
+      mat-button
+      (click)="addCount()"
+    >
+      click me!
+    </button>
+
+    <p>Button with badge</p>
+    <!-- dynamically change the count from .ts to .html -->
+    <!-- using [] on [matBadge]= "count" where count is defined on .ts file -->
+    <button [matBadge]="count" mat-raised-button>Action</button>
+    <br />
+    <br />
+    <!-- cause hard coded example would be matBagde="7" -->
+    <button matBadge="7" mat-raised-button>Action</button>
+
+    <p>Icon with badge</p>
+    <!-- dynamically change the count from .ts to .html -->
+    <!-- using [] on [matBadge]= "count" where count is defined on .ts file -->
+    <mat-icon [matBadge]="count">home</mat-icon>
+    <br />
+    <br />
+    <!-- cause hard coded example would be matBagde="7" -->
+    <mat-icon matBadge="7">home</mat-icon>
+
+---------------------------------------------------------------------------------
+
+on app.component.ts
+
+    // storage link to display the selected date on .html file
+    selectedDate: Date;
+    // catching the selected date
+    selectDate(event: MatDatepickerInputEvent<Date>) {
+        console.log(event.value);
+        this.selectedDate = event.value;
+    }
+
+    // initla count - display onm badge
+    count = 0;
+    // method to add count to badge
+    addCount() {
+        this.count++;
+        console.log(this.count);
+    }
+
+---------------------------------------------------------------------------------
+error encountered 
+
+    core.js:6185 ERROR Error: MatDatepicker: No provider found for DateAdapter. 
+    You must import one of the following modules at your application root:
+    MatNativeDateModule, MatMomentDateModule, or provide a custom implementation.
+
+solution
+
+    on app.module.ts
+
+        import { MatNativeDateModule } from "@angular/material/core";
+
+        imports: [
+            MatNativeDateModule,
+        ],
+
+    -------------------------------------------------------------------------------
+
+error encountered
+
+    ERROR in node_modules/@angular/material/icon/icon-module.d.ts:8:22 - error NG6002: 
+    Appears in the NgModule.imports of AppModule, but could not be resolved to an NgModule class.
+    This likely means that the library (@angular/material/icon) which declares MatIconModule 
+    has not been processed correctly by ngcc, or is not compatible with Angular Ivy. 
+    Check if a newer version of the library is available, and update if so. 
+    Also consider checking with the library's authors to see if the library is expected to be compatible with Ivy.
+    8 export declare class MatIconModule {
+
+solution
+
+    just type on terminal crtl + c then npm start again
