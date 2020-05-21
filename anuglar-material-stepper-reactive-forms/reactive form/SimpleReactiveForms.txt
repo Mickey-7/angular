@@ -1,0 +1,88 @@
+SimpleReactiveForms with validations (no input field must be null)
+    FormGroup & FormControl
+
+------------------------------------------------------------------------------------------
+    
+<p>
+  Start editing to see some magic happen :)
+</p>
+
+<form [formGroup]="employeeForm" (ngSubmit)="display()">
+  <label>First Name :</label>
+  <input formControlName="firstName">
+  <br>
+  <label>Last Name :</label>
+  <input formControlName="lastName">
+  <br>
+  <label>Country :</label>
+  <select formControlName="country" >
+    <option *ngFor="let country of countries" [value]="country">
+      {{country}}
+    </option>
+  </select>
+  <br>
+  <label>Request Type :</label>
+  <select  formControlName="requestType">
+    <option *ngFor="let requestType of requestTypes" [value]="requestType">
+      {{requestType}}
+    </option>
+  </select>
+  <br>
+
+  <button>
+    Submit
+  </button>
+
+
+</form>
+
+------------------------------------------------------------------------------------------
+
+//
+import {ReactiveFormsModule} from '@angular/forms';
+
+@NgModule({
+  imports:      [
+  //
+  ReactiveFormsModule ],
+
+})
+export class AppModule { }
+
+------------------------------------------------------------------------------------------
+
+
+
+import { Component, VERSION } from '@angular/core';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+
+@Component({
+  selector: 'my-app',
+  templateUrl: './app.component.html',
+  styleUrls: [ './app.component.css' ]
+})
+export class AppComponent  {
+  name = 'Angular ' + VERSION.major;
+
+  employeeForm = new FormGroup({
+    firstName : new FormControl("",[Validators.required]),
+    lastName : new FormControl("",[Validators.required]),
+    country : new FormControl("",[Validators.required]),
+    requestType : new FormControl("",[Validators.required])
+  })
+
+  countries = ["USA","Germany","Italy","France"];
+  requestTypes = ["Claim","Feedback","Help Request"];
+
+  constructor(){
+  }
+
+  display(){
+     if(this.employeeForm.valid){
+       console.log(this.employeeForm.value)
+     }
+     else{
+       console.log("fields should not be null")
+     }
+  }
+}

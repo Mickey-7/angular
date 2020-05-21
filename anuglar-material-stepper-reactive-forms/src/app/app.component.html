@@ -1,0 +1,167 @@
+<!-- the #stepper below pertian to the stepper.reset() -->
+<mat-vertical-stepper #stepper [linear]="isLinear">
+  <!-- creating and putting title on step -->
+  <mat-step label="Fill out your first name" [stepControl]="form">
+    <!-- actual form must contain [formGroup]="FormGroup_name"-->
+    <!-- snippet : a-formG -->
+    <!-- formGroup must contain formControlName -->
+    <form [formGroup]="form">
+      <!-- mat-form-field must contain matInput -->
+      <mat-form-field>
+        <mat-label>First Name</mat-label>
+        <!-- snippet : a-formC -->
+        <input matInput formControlName="firstName" />
+      </mat-form-field>
+      <!-- for navigation to the next step -->
+      <div>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+
+  <!-- creating and putting title on step -->
+  <mat-step label="Fill out your last name" [stepControl]="form1">
+    <!-- actual form must contain [formGroup]="FormGroup_name"-->
+    <!-- snippet : a-formG -->
+    <!-- formGroup must contain formControlName -->
+    <form [formGroup]="form1">
+      <!-- mat-form-field must contain matInput -->
+      <mat-form-field>
+        <mat-label>Name</mat-label>
+        <!-- snippet : a-formC -->
+        <input matInput formControlName="lastName" />
+      </mat-form-field>
+      <!-- for navigation to the next step -->
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+
+  <!-- creating and putting title on OPTIONAL STEP -->
+  <mat-step
+    label="Fill out your age"
+    [stepControl]="form2"
+    [optional]="isOptional"
+  >
+    <!-- actual form must contain [formGroup]="FormGroup_name"-->
+    <!-- snippet : a-formG -->
+    <!-- formGroup must contain formControlName -->
+    <form [formGroup]="form2">
+      <!-- mat-form-field must contain matInput -->
+      <mat-form-field>
+        <mat-label>Age</mat-label>
+        <!-- snippet : a-formC -->
+        <input matInput formControlName="age" />
+      </mat-form-field>
+      <!-- for navigation to the next step -->
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+
+  <!-- creating and putting title on step -->
+  <mat-step label="Done">
+    <p>You are now done.</p>
+    <!-- for navigation to the next step -->
+    <div>
+      <!-- the stepper below pertain to the #stepper above -->
+      <button mat-button (click)="stepper.reset()">Reset</button>
+      <button mat-button (click)="submit()">Submit</button>
+    </div>
+  </mat-step>
+</mat-vertical-stepper>
+
+<h3>Displaying the input values</h3>
+
+<p>{{ binding | json }}</p>
+<p>{{ binding1 | json }}</p>
+<p>{{ binding2 | json }}</p>
+
+<hr />
+
+<!-- the #stepper below pertian to the stepper.reset() -->
+<mat-horizontal-stepper #stepper [linear]="isLinear">
+  <!-- creating and putting title on step -->
+  <mat-step label="Fill out your first name" [stepControl]="form">
+    <!-- actual form must contain [formGroup]="FormGroup_name"-->
+    <!-- snippet : a-formG -->
+    <!-- formGroup must contain formControlName -->
+    <form [formGroup]="form">
+      <!-- mat-form-field must contain matInput -->
+      <mat-form-field>
+        <mat-label>First Name</mat-label>
+        <!-- snippet : a-formC -->
+        <input matInput formControlName="firstName" />
+      </mat-form-field>
+      <!-- for navigation to the next step -->
+      <div>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+
+  <!-- creating and putting title on step -->
+  <mat-step label="Fill out your last name" [stepControl]="form1">
+    <!-- actual form must contain [formGroup]="FormGroup_name"-->
+    <!-- snippet : a-formG -->
+    <!-- formGroup must contain formControlName -->
+    <form [formGroup]="form1">
+      <!-- mat-form-field must contain matInput -->
+      <mat-form-field>
+        <mat-label>Name</mat-label>
+        <!-- snippet : a-formC -->
+        <input matInput formControlName="lastName" />
+      </mat-form-field>
+      <!-- for navigation to the next step -->
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+
+  <!-- creating and putting title on OPTIONAL STEP -->
+  <mat-step
+    label="Fill out your age"
+    [stepControl]="form2"
+    [optional]="isOptional"
+  >
+    <!-- actual form must contain [formGroup]="FormGroup_name"-->
+    <!-- snippet : a-formG -->
+    <!-- formGroup must contain formControlName -->
+    <form [formGroup]="form2">
+      <!-- mat-form-field must contain matInput -->
+      <mat-form-field>
+        <mat-label>Age</mat-label>
+        <!-- snippet : a-formC -->
+        <input matInput formControlName="age" />
+      </mat-form-field>
+      <!-- for navigation to the next step -->
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+
+  <!-- creating and putting title on step -->
+  <mat-step label="Done">
+    <p>You are now done.</p>
+    <!-- for navigation to the next step -->
+    <div>
+      <!-- the stepper below pertain to the #stepper above -->
+      <button mat-button (click)="stepper.reset()">Reset</button>
+      <button mat-button (click)="submit()">Submit</button>
+    </div>
+  </mat-step>
+</mat-horizontal-stepper>
+
+<h3>Displaying the input values</h3>
+
+<p>{{ binding | json }}</p>
+<p>{{ binding1 | json }}</p>
+<p>{{ binding2 | json }}</p>
