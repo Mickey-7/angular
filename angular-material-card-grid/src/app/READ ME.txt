@@ -1,0 +1,165 @@
+import the needed modules on app.module.ts
+
+    //
+    import { MatGridListModule } from "@angular/material/grid-list";
+    import { MatCardModule } from "@angular/material/card";
+    imports: [
+        //
+        MatGridListModule,
+        MatCardModule
+    ],
+
+---------------------------------------------------------------------------------
+
+grid reference : https://material.angular.io/components/grid-list/examples
+
+    |------------------ cols -------------------------|    
+    --------------------------------------------------      _____
+    |                                                |        |
+    |                                                |        |
+    |                                                |      rowHeight
+    |                                                |        |
+    |                                                |        |  
+    |                                                |        |
+    --------------------------------------------------      _____
+
+    <mat-grid-list cols="4" rowHeight="50px">
+    <mat-grid-tile
+        [colspan]="1"
+        [rowspan]="1"
+        style="background-color: lightblue;"
+        >1</mat-grid-tile
+    >
+
+    <mat-grid-tile
+        [colspan]="2"
+        [rowspan]="1"
+        style="background-color: lightblue;"
+        >2</mat-grid-tile
+    >
+
+    <mat-grid-tile
+        [colspan]="1"
+        [rowspan]="2"
+        style="background-color: lightblue;"
+        >3</mat-grid-tile
+    >
+
+    <mat-grid-tile
+        [colspan]="2"
+        [rowspan]="2"
+        style="background-color: lightblue;"
+        >4</mat-grid-tile
+    >
+
+    <mat-grid-tile
+        [colspan]="1"
+        [rowspan]="1"
+        style="background-color: lightblue;"
+        >5</mat-grid-tile
+    >
+
+    <mat-grid-tile
+        [colspan]="2"
+        [rowspan]="1"
+        style="background-color: lightblue;"
+        >6</mat-grid-tile
+    >
+
+    <mat-grid-tile
+        [colspan]="4"
+        [rowspan]="1"
+        style="background-color: lightblue;"
+        >7</mat-grid-tile
+    >
+    </mat-grid-list>
+
+
+    output : see Capture - Grid Ouput
+
+    cols = sum of [colspan]
+
+---------------------------------------------------------------------------------
+
+card reference :     https://material.angular.io/components/card/examples
+
+
+    <h3>Simple Card</h3>
+    <mat-card>Card1</mat-card>
+    <br />
+
+    <h3>Simple Card with width & height</h3>
+    <mat-card style="width: 50px; height: 50px;">Card2</mat-card>
+    <br />
+    <mat-card style="width: 50px; height: 50px;">Card3</mat-card>
+    <br />
+
+    <!-- display : flex to make each mat-card next to each other -->
+    <div style="display: flex;">
+    <mat-card style="width: 50px; height: 50px;">Card4</mat-card>
+    <mat-card style="width: 50px; height: 50px;">Card5</mat-card>
+    </div>
+    <br />
+
+    <!-- ---------------------------------------------------------------------- -->
+
+    <h3>Card with multiple sections</h3>
+    <mat-card style="width: 150px; height: 250px;">
+    <mat-card-title>Card</mat-card-title>
+    <mat-card-subtitle>this is a card</mat-card-subtitle>
+    <mat-card-content>
+        <p>
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatibus
+        ducimus pariatur doloremque quas velit repellat, labore a!
+        </p>
+    </mat-card-content>
+    <mat-card-actions>
+        <button>Like</button>
+        <button>Share</button>
+    </mat-card-actions>
+    </mat-card>
+    <br />
+
+    <!-- card with image -->
+    <mat-card style="width: 150px; height: 425px;">
+    <mat-card-title>Card</mat-card-title>
+    <mat-card-subtitle>this is a card</mat-card-subtitle>
+    <img
+        mat-card-image
+        src="https://material.angular.io/assets/img/examples/shiba2.jpg"
+    />
+    <mat-card-content>
+        <p>
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatibus
+        ducimus pariatur doloremque quas velit repellat, labore a!
+        </p>
+    </mat-card-content>
+    <mat-card-actions>
+        <button>Like</button>
+        <button>Share</button>
+    </mat-card-actions>
+    </mat-card>
+    <hr />
+
+    output : see Capture - Card Ouput1 & 2
+    
+
+---------------------------------------------------------------------------------
+
+when we put the card inside the grid,
+
+    the card becomes reponsive like the grid 
+    unlike before when the card is alone,
+    the card is just on its fixed position,
+    even the browser changes in dimensions
+
+
+
+
+
+
+
+
+
+
+
