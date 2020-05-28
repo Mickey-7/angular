@@ -1,0 +1,59 @@
+ANT DESIGN is LIFE!!!!!!!
+
+-------------------------------------------------------------------------------------------------------------------------
+
+installation reference : https://ng.ant.design/docs/introduce/en
+
+    Installation#
+    We recommend using @angular/cli to install，
+    it not only makes development easier，
+    but also allow you to take advantage of 
+    the rich ecosystem of angular packages and tooling.
+    
+        npx ng add ng-zorro-antd
+
+    C:\Users\donat\Documents\ant-design-is-LIFE>npx ng add ng-zorro-antd
+    Installing packages for tooling via npm.
+    Installed packages for tooling via npm.
+    ? Enable icon dynamic loading [ Detail: https://ng.ant.design/components/icon/en ] Yes
+    ? Set up custom theme file [ Detail: https://ng.ant.design/docs/customize-theme/en ] Yes
+    ? Choose your locale code: en_US
+    ? Choose template to create project: sidemenu
+    UPDATE package.json (1325 bytes)
+    CREATE src/app/icons-provider.module.ts (482 bytes)
+    CREATE src/app/pages/welcome/welcome-routing.module.ts (352 bytes)
+    CREATE src/app/pages/welcome/welcome.component.html (0 bytes)
+    CREATE src/app/pages/welcome/welcome.component.ts (273 bytes)
+    CREATE src/app/pages/welcome/welcome.component.css (0 bytes)
+    CREATE src/app/pages/welcome/welcome.module.ts (314 bytes)
+    UPDATE src/app/app-routing.module.ts (416 bytes)
+    UPDATE src/app/app.component.html (1592 bytes)
+    UPDATE src/app/app.component.ts (213 bytes)
+    UPDATE src/app/app.component.css (1245 bytes)
+    UPDATE src/app/app.module.ts (625 bytes)
+    √ Packages installed successfully.
+    CREATE src/theme.less (28746 bytes)
+    UPDATE src/app/app.module.ts (1127 bytes)
+    UPDATE angular.json (3883 bytes)
+
+    C:\Users\donat\Documents\ant-design-is-LIFE>
+
+-------------------------------------------------------------------------------------------------------------------------
+
+some files will be automatically modified 
+    app-routing.module.ts
+    app.component.css
+    app.component.html
+    app.component.ts
+    app.module.ts
+
+& some files will be created
+    pages/welcome/
+        welcome-routing.module.ts
+        welcome.component.css
+        welcome.component.html
+        welcome.component.ts
+        welcome.module.ts
+
+-------------------------------------------------------------------------------------------------------------------------
+
