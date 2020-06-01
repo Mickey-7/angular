@@ -1,0 +1,59 @@
+<h3>Basic</h3>
+<nz-rate [ngModel]="1" style="margin-left: 24px; color: #000;"></nz-rate>
+
+<br />
+<br />
+<h3>Half star</h3>
+<nz-rate [ngModel]="4.5" nzAllowHalf style="margin-left: 24px;"></nz-rate>
+
+<br />
+<br />
+<h3>Show copywriting</h3>
+<!-- the tooltips and value corresponds to the
+tooltips and value on the .ts file -->
+<nz-rate
+  [(ngModel)]="value"
+  [nzTooltips]="tooltips"
+  style="margin-left: 24px;"
+></nz-rate>
+<span>{{ value ? tooltips[value - 1] : "" }}</span>
+
+<br />
+<br />
+<h3>Other Character</h3>
+<nz-rate
+  [nzCharacter]="characterIcon"
+  [ngModel]="2.5"
+  nzAllowHalf
+  style="margin-left: 24px;"
+></nz-rate>
+<ng-template #characterIcon
+  ><i nz-icon nzType="heart" nzTheme="fill"></i
+></ng-template>
+<br />
+<br />
+
+<nz-rate
+  [nzCharacter]="characterZhLetter"
+  [ngModel]="3.5"
+  nzAllowHalf
+  style="margin-left: 24px;"
+></nz-rate>
+<ng-template #characterZhLetter>好 ></ng-template>
+<br />
+<br />
+
+<nz-rate
+  [ngModel]="4.5"
+  nzAllowHalf
+  [nzCharacter]="characterEnLetter"
+  style="margin-left: 24px;"
+></nz-rate>
+
+<ng-template #characterEnLetter>A</ng-template>
+
+<br /><br /><br /><br /><br />
+<br /><br /><br /><br /><br />
+
+<br /><br /><br /><br /><br />
+<br /><br /><br />

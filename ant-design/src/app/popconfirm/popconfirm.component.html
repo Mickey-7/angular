@@ -1,0 +1,176 @@
+<h3>Basic</h3>
+<a
+  nz-popconfirm
+  nzPopconfirmTitle="Are you sure youw ant to dlete these items?"
+  nzPopconfirmPlacement="bottom"
+  (nzOnConfirm)="confirm()"
+  (nzOnCancel)="cancel()"
+  style="padding-left: 24px;"
+  >Delete</a
+>
+<br />
+<br />
+
+<h3>Customize icon</h3>
+<a
+  nz-popconfirm
+  [nzIcon]="iconTpl"
+  nzPopconfirmTitle="Are you sure you want to delete these items?"
+  style="padding-left: 24px;"
+  >Delete</a
+>
+<!-- the #iconTpl pertains to iconTpl above -->
+<ng-template #iconTpl>
+  <i nz-icon nzType="question-circle-o" style="color: red;"></i>
+</ng-template>
+<br />
+<br />
+
+<h3>Placement</h3>
+<!-- left side -->
+<div style="float: left; margin-top: 50px;">
+  <button
+    nz-popconfirm
+    nzPopconfirmTitle="Are you sure?"
+    nzPopconfirmPlacement="leftTop"
+    (nzOnConfirm)="confirm()"
+    (nzOnCancel)="cancel()"
+    class="spacer"
+  >
+    Left Top
+  </button>
+  <br />
+  <br />
+  <button
+    nz-popconfirm
+    nzPopconfirmTitle="Are you sure?"
+    nzPopconfirmPlacement="left"
+    (nzOnConfirm)="confirm()"
+    (nzOnCancel)="cancel()"
+    class="spacer"
+  >
+    Left
+  </button>
+  <br />
+  <br />
+  <button
+    nz-popconfirm
+    nzPopconfirmTitle="Are you sure?"
+    nzPopconfirmPlacement="leftBottom"
+    (nzOnConfirm)="confirm()"
+    (nzOnCancel)="cancel()"
+    class="spacer"
+  >
+    Left Bottom
+  </button>
+</div>
+
+<!-- top side -->
+<button
+  nz-popconfirm
+  nzPopconfirmTitle="Are you sure?"
+  nzPopconfirmPlacement="topLeft"
+  (nzOnConfirm)="confirm()"
+  (nzOnCancel)="cancel()"
+  class="spacer"
+>
+  Top Left
+</button>
+<button
+  nz-popconfirm
+  nzPopconfirmTitle="Are you sure?"
+  nzPopconfirmPlacement="top"
+  (nzOnConfirm)="confirm()"
+  (nzOnCancel)="cancel()"
+  class="spacer"
+>
+  Top
+</button>
+<button
+  nz-popconfirm
+  nzPopconfirmTitle="Are you sure?"
+  nzPopconfirmPlacement="topRight"
+  (nzOnConfirm)="confirm()"
+  (nzOnCancel)="cancel()"
+  class="spacer"
+>
+  Top Right
+</button>
+
+<!-- right side -->
+<div style="float: right; margin-top: 50px; margin-right: 45%;">
+  <button
+    nz-popconfirm
+    nzPopconfirmTitle="Are you sure?"
+    nzPopconfirmPlacement="rightTop"
+    (nzOnConfirm)="confirm()"
+    (nzOnCancel)="cancel()"
+    class="spacer"
+  >
+    Right Top
+  </button>
+  <br />
+  <br />
+  <button
+    nz-popconfirm
+    nzPopconfirmTitle="Are you sure?"
+    nzPopconfirmPlacement="right"
+    (nzOnConfirm)="confirm()"
+    (nzOnCancel)="cancel()"
+    class="spacer"
+  >
+    Right
+  </button>
+  <br />
+  <br />
+  <button
+    nz-popconfirm
+    nzPopconfirmTitle="Are you sure?"
+    nzPopconfirmPlacement="rightBottom"
+    (nzOnConfirm)="confirm()"
+    (nzOnCancel)="cancel()"
+    class="spacer"
+  >
+    Right Bottom
+  </button>
+</div>
+
+<!-- bottom side -->
+<div style="margin-top: 25%; margin-left: 12%;">
+  <button
+    nz-popconfirm
+    nzPopconfirmTitle="Are you sure?"
+    nzPopconfirmPlacement="bottomLeft"
+    (nzOnConfirm)="confirm()"
+    (nzOnCancel)="cancel()"
+    class="spacer"
+  >
+    Bottom Left
+  </button>
+  <button
+    nz-popconfirm
+    nzPopconfirmTitle="Are you sure?"
+    nzPopconfirmPlacement="bottom"
+    (nzOnConfirm)="confirm()"
+    (nzOnCancel)="cancel()"
+    class="spacer"
+  >
+    Bottom
+  </button>
+  <button
+    nz-popconfirm
+    nzPopconfirmTitle="Are you sure?"
+    nzPopconfirmPlacement="bottomRight"
+    (nzOnConfirm)="confirm()"
+    (nzOnCancel)="cancel()"
+    class="spacer"
+  >
+    Bottom Right
+  </button>
+</div>
+
+<br />
+<br /><br /><br /><br /><br />
+<br /><br /><br /><br /><br />
+<br />
+<br />

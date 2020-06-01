@@ -1,0 +1,87 @@
+<h3>Type</h3>
+<button nz-button nzType="primary" id="marg">Primary</button>
+<button nz-button nzType="default" id="marg">Default</button>
+<button nz-button nzType="dashed" id="marg">Dashed</button>
+<a nz-button nzType="link" id="marg">Link</a>
+<br />
+<br />
+<h3>Group with Icon</h3>
+<nz-button-group id="marg">
+  <button nz-button nzType="primary">
+    <i nz-icon nzType="left"></i>Go Forward
+  </button>
+  <button nz-button nzType="primary">
+    Go Back<i nz-icon nzType="right"></i>
+  </button>
+</nz-button-group>
+<br />
+<br />
+<h3>Danger</h3>
+<button nz-button nzType="primary" nzDanger id="marg">Primary</button>
+<button nz-button nzType="default" nzDanger id="marg">Default</button>
+<button nz-button nzType="dashed" nzDanger id="marg">Dashed</button>
+<a nz-button nzType="link" nzDanger id="marg">Link</a>
+<br />
+<br />
+<h3>Ghost</h3>
+<button nz-button nzType="primary" nzGhost id="marg">Primary</button>
+<button nz-button nzType="default" nzGhost style="color: black;" id="marg">
+  Default
+</button>
+<button nz-button nzType="dashed" nzGhost style="color: black;" id="marg">
+  Dashed
+</button>
+<a nz-button nzType="link" nzGhost style="color: black;" id="marg">Link</a>
+<br />
+<br />
+<h3>Multiple</h3>
+<button nz-dropdown [nzDropdownMenu]="menu" nz-button id="marg">
+  Actions<i nz-icon nzType="down"></i>
+</button>
+<nz-dropdown-menu #menu="nzDropdownMenu">
+  <ul nz-menu nzSelectable>
+    <li nz-menu-item>
+      <a nzValue>1st item</a>
+    </li>
+    <li nz-menu-item>
+      <a value="2nd item">2nd item</a>
+    </li>
+    <li nz-menu-item>
+      <a value="2nd item">3rd item</a>
+    </li>
+  </ul>
+</nz-dropdown-menu>
+<br />
+<br />
+<h3>Size</h3>
+<button nz-button nzType="primary" nzSize="large" id="marg">Large</button>
+<button nz-button nzType="primary" nzSize="default" id="marg">Default</button>
+<button nz-button nzType="primary" nzSize="small" id="marg">Small</button>
+<br />
+<br />
+<h3>Icon</h3>
+<button nz-button nzType="primary" nzShape="circle" id="marg">
+  <i nz-icon nzType="search"></i>
+</button>
+<button nz-button nzType="primary" id="marg">
+  <i nz-icon nzType="search"></i>Search
+</button>
+<button nz-button nzType="primary" nzShape="circle" nzGhost id="marg">
+  <i nz-icon nzType="search"></i>
+</button>
+<button nz-button nzType="primary" nzGhost id="marg">
+  <i nz-icon nzType="search"></i>Search
+</button>
+<br />
+<br />
+<h3>Disabled</h3>
+<button nz-button nzType="primary" disabled id="marg">Primary</button>
+<button nz-button nzType="default" disabled id="marg">Default</button>
+<button nz-button nzType="dashed" disabled id="marg">Dashed</button>
+<a nz-button nzType="link" disabled id="marg">Link</a>
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />

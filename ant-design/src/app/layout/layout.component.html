@@ -1,0 +1,128 @@
+<nz-layout>
+  <!-- making side toggable -> nzCollapsible -->
+  <nz-sider nzCollapsible nzWidth="200px">
+    <!-- text-align will center the ant design icon -->
+    <div style="color: white; text-align: center; margin-top: 16px;">
+      <i
+        nz-icon
+        nzType="ant-design"
+        nzTheme="outline"
+        style="font-size: 30px; color: cornflowerblue;"
+      ></i>
+    </div>
+    <!-- set dark theme and mode inline -->
+    <ul nz-menu nzTheme="dark" nzMode="inline">
+      <!-- for General -->
+      <li nz-submenu nzTitle="General" nzIcon="setting">
+        <ul>
+          <!-- snippet : a-rout -->
+          <li
+            nz-menu-item
+            [routerLink]="['/button']"
+            routerLinkActive="router-link-active"
+          >
+            Button
+          </li>
+          <!-- snipper : a-rout -->
+          <li
+            nz-menu-item
+            [routerLink]="['/typography']"
+            routerLinkActive="router-link-active"
+          >
+            Typography
+          </li>
+        </ul>
+      </li>
+
+      <!-- for Data Display -->
+      <li nz-submenu nzTitle="Data Display" nzIcon="table">
+        <ul>
+          <!-- snippet : a-rout -->
+          <li
+            nz-menu-item
+            [routerLink]="['/table']"
+            routerLinkActive="router-link-active"
+          >
+            Table
+          </li>
+          <!-- snippet : a-rout -->
+          <li
+            nz-menu-item
+            [routerLink]="['/comment']"
+            routerLinkActive="router-link-active"
+          >
+            Comment
+          </li>
+        </ul>
+      </li>
+
+      <!-- for Data Entry -->
+      <li nz-submenu nzTitle="Data Entry" nzIcon="login">
+        <ul>
+          <!-- snippet : a-rout -->
+          <li
+            nz-menu-item
+            [routerLink]="['/mention']"
+            routerLinkActive="router-link-active"
+          >
+            Mention
+          </li>
+          <!-- snippet : a-rout -->
+          <li
+            nz-menu-item
+            [routerLink]="['/rate']"
+            routerLinkActive="router-link-active"
+          >
+            Rate
+          </li>
+        </ul>
+      </li>
+
+      <!-- for Feedback -->
+      <li nz-submenu nzTitle="Feedback" nzIcon="coffee">
+        <ul>
+          <!-- snippet : a-rout -->
+          <li
+            nz-menu-item
+            [routerLink]="['/modal']"
+            routerLinkActive="router-link-active"
+          >
+            Modal
+          </li>
+          <!-- snippet : a-rout -->
+          <li
+            nz-menu-item
+            [routerLink]="['/popconfirm']"
+            routerLinkActive="router-link-active"
+          >
+            Popconfirm
+          </li>
+          <!-- snippet : a-rout -->
+          <li
+            nz-menu-item
+            [routerLink]="['/notification']"
+            routerLinkActive="router-link-active"
+          >
+            Notification
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </nz-sider>
+
+  <!-- for the next layout column -->
+  <nz-layout>
+    <!-- header -->
+    <nz-header style="color: blanchedalmond;">This is Header</nz-header>
+
+    <!-- content -->
+    <nz-content>
+      <div style="margin-top: 26px; margin-left: 20px;">
+        <router-outlet></router-outlet>
+      </div>
+    </nz-content>
+
+    <!-- footer -->
+    <nz-footer>Ant Design ©2020 Implement By Angular</nz-footer>
+  </nz-layout>
+</nz-layout>

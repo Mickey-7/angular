@@ -1,0 +1,98 @@
+install ant-design
+
+    npx ng add ng-zorro-antd
+
+    C:\Users\donat\Documents\ant-design>npx ng add ng-zorro-antd
+    Installing packages for tooling via npm.
+    Installed packages for tooling via npm.
+    ? Enable icon dynamic loading [ Detail: https://ng.ant.design/components/icon/en ] Yes    
+    ? Set up custom theme file [ Detail: https://ng.ant.design/docs/customize-theme/en ] Yes  
+    ? Choose your locale code: en_US
+    ? Choose template to create project: blank
+    UPDATE package.json (1317 bytes)
+    UPDATE src/app/app.component.html (276 bytes)
+    √ Packages installed successfully.
+    CREATE src/theme.less (28746 bytes)
+    UPDATE src/app/app.module.ts (895 bytes)
+
+-----------------------------------------------------------------------------------------------------------
+
+usage
+    on app.module.ts,
+        
+        //
+        import { NzButtonModule } from "ng-zorro-antd/button";
+
+        @NgModule({
+        imports: [
+            //
+            NzButtonModule,
+        ]
+    
+    on app.component.html
+
+        <!-- NG-ZORRO -->
+        <!-- <a href="https://github.com/NG-ZORRO/ng-zorro-antd" target="_blank" style="display: flex;align-items: center;justify-content: center;height: 100%;width: 100%;">
+        <img height="300" src="https://img.alicdn.com/tfs/TB1X.qJJgHqK1RjSZFgXXa7JXXa-89-131.svg">
+        </a> -->
+
+        <button nz-button nzType="primary">Primary</button>
+
+-----------------------------------------------------------------------------------------------------------
+
+error encountered :
+
+    ERROR in node_modules/ng-zorro-antd/button/button.module.d.ts:8:22 - error NG6002: Appears in the NgModule.imports of AppModule, but could not be resolved to an NgModule class.    
+    This likely means that the library (ng-zorro-antd/button) which declares NzButtonModule has not been processed correctly by ngcc, or is not compatible with Angular Ivy. Check if a newer version of the library is available, and update if so. Also consider checking with the library's authors to see if the library is expected to be compatible with Ivy.     
+    
+    8 export declare class NzButtonModule {
+
+solution : https://github.com/NG-ZORRO/ng-zorro-antd/issues/4236
+
+    deleting node_modules and reinstalling it, ivy works fine again.
+
+-----------------------------------------------------------------------------------------------------------
+
+components reference : https://ng.ant.design/components/button/en
+
+-----------------------------------------------------------------------------------------------------------
+
+components used :
+    Layout
+        Layout
+    General
+        Button
+        Typography
+    Data Display
+        Comment
+        Table
+    Feedback
+        Modal
+        Popconfirm
+        Notification
+    Data Entry
+        Mention
+        Rate
+
+
+-----------------------------------------------------------------------------------------------------------
+
+errors encountered :
+
+    Error from chokidar (C:\): Error: EBUSY: resource busy or locked, lstat 'C:\hiberfil.sys'
+    Error from chokidar (C:\): Error: EBUSY: resource busy or locked, lstat 'C:\pagefile.sys' 
+    Error from chokidar (C:\): Error: EBUSY: resource busy or locked, lstat 'C:\swapfile.sys' 
+
+    due to auto import of 
+        import { NzModalService } from 'ng-zorro-antd/modal/public-api';
+    once NzModalService is invoke on the constructor
+        constructor( private modal : NzModalService)
+
+solution :
+
+    remove the public-api from the auto import as it does not exist
+
+          import { NzModalService } from 'ng-zorro-antd/modal';
+
+-----------------------------------------------------------------------------------------------------------
+

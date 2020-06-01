@@ -1,0 +1,34 @@
+<h3>Basic</h3>
+<!-- onSearchChange($event) and suggestions are found on .ts file -->
+<nz-mention
+  (nzOnSearchChange)="onSearchChange($event)"
+  [nzPrefix]="['#', '@']"
+  [nzSuggestions]="suggestions"
+>
+  <!-- snippet : a-ngM -->
+  <!-- inputValue is found on .ts file -->
+  <input
+    nz-input
+    [(ngModel)]="inputValue"
+    nzMentionTrigger
+    placeholder="input @ to mention people, # to mention tag"
+    style="width: 470px;"
+  />
+</nz-mention>
+
+<br /><br />
+<br /><br /><br /><br />
+
+<br /><br />
+<br /><br /><br /><br />
+<br /><br />
+<br /><br /><br /><br />
+<br /><br />
+<br /><br /><br /><br />
+
+<br /><br />
+<br /><br /><br /><br />
+
+<br /><br />
+<br />
+<br />

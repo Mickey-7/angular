@@ -1,0 +1,85 @@
+<p>notification works!</p>
+
+<h3>Basic</h3>
+<button
+  nz-button
+  (click)="showNotification()"
+  nzType="primary"
+  style="margin-left: 24px;"
+>
+  Basic Notification
+</button>
+
+<br />
+<br />
+<h3>Notification with icon</h3>
+<button
+  (click)="createNotification('info')"
+  nz-button
+  style="margin-left: 24px;"
+>
+  Info
+</button>
+<button
+  (click)="createNotification('success')"
+  nz-button
+  style="margin-left: 24px;"
+>
+  Success
+</button>
+<button
+  (click)="createNotification('warning')"
+  nz-button
+  style="margin-left: 24px;"
+>
+  Warning
+</button>
+<button
+  (click)="createNotification('error')"
+  nz-button
+  style="margin-left: 24px;"
+>
+  Error
+</button>
+
+<br />
+<br />
+<h3>Placement</h3>
+<button
+  (click)="createPlacementNotification('topLeft')"
+  nzType="primary"
+  nz-button
+  style="margin-left: 24px;"
+>
+  <i nz-icon nzType="radius-upleft"></i>topLeft
+</button>
+<button
+  (click)="createPlacementNotification('topRight')"
+  nzType="primary"
+  nz-button
+  style="margin-left: 24px;"
+>
+  <i nz-icon nzType="radius-upright"></i>topLeft
+</button>
+<nz-divider></nz-divider>
+<button
+  (click)="createPlacementNotification('bottomLeft')"
+  nzType="primary"
+  nz-button
+  style="margin-left: 24px;"
+>
+  <i nz-icon nzType="radius-bottomleft"></i>topLeft
+</button>
+<button
+  (click)="createPlacementNotification('bottomRight')"
+  nzType="primary"
+  nz-button
+  style="margin-left: 24px;"
+>
+  <i nz-icon nzType="radius-bottomright"></i>topLeft
+</button>
+<br /><br /><br /><br /><br /><br /><br />
+
+<br /><br /><br /><br /><br /><br /><br />
+
+<br /><br /><br /><br /><br /><br /><br />

@@ -1,0 +1,108 @@
+<h3>Basic modal</h3>
+<button (click)="basicModal()" nz-button nzType="primary">Basic modal</button>
+<!-- generate modal configurations  -->
+<!-- isVisible will be true when button is click
+so the modal below will be displayed -->
+<nz-modal
+  [(nzVisible)]="basicVisible"
+  (nzOnCancel)="basicModalCancel()"
+  (nzOnOk)="basicModalOk()"
+  nzTitle="Basic Modal"
+>
+  <p>Content 1</p>
+  <p>Content 2</p>
+  <p>Content 3</p>
+</nz-modal>
+<br />
+<br />
+
+<h3>Customized Footer</h3>
+<!-- showModalCustom() will trigger isVisible on .ts file -->
+<button nz-button nzType="primary" (click)="customModal()">
+  <span>Custom Modal</span>
+</button>
+<!-- generate modal configurations  -->
+<nz-modal
+  [nzTitle]="modalTitle"
+  [nzContent]="modalContent"
+  [nzFooter]="modalFooter"
+  [(nzVisible)]="customVisible"
+  (nzOnCancel)="customModalCancel()"
+>
+  <!-- modal title -->
+  <ng-template #modalTitle>Custom Modal Title</ng-template>
+  <!-- modal content -->
+  <ng-template #modalContent>
+    <p>Modal Content 0</p>
+    <p>Modal Content 1</p>
+    <p>Modal Content 2</p>
+  </ng-template>
+  <!-- modal footer -->
+  <ng-template #modalFooter>
+    <span>Modal Footer : </span>
+    <button (click)="customModalCancel()" nzType="dashed" nz-button>
+      Custom Callback
+    </button>
+    <button
+      (click)="customModalOk()"
+      [nzLoading]="loading"
+      nzType="primary"
+      nz-button
+    >
+      Custom Submit
+    </button>
+  </ng-template>
+</nz-modal>
+<br />
+<br />
+
+<h3>Information Modal Dialog - using NzModalService.confirm()</h3>
+<button (click)="info()" nz-button nzGhost nzType="primary">
+  Info
+</button>
+<button (click)="success()" nz-button nzGhost nzType="primary" class="spacer">
+  success
+</button>
+<button (click)="error()" nz-button nzDanger nzType="primary" class="spacer">
+  error
+</button>
+<button
+  (click)="warning()"
+  nz-button
+  nzGhost
+  nzType="primary"
+  style="color: black;"
+  class="spacer"
+>
+  warning
+</button>
+
+<br />
+<br />
+<h3>Confirmation modal dialog - using NzModalService.confirm()</h3>
+<button (click)="showConfirm()" nzType="primary" nz-button>Confirm</button>
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+
+<br />
+<br />
+<br />
+<br />
+
+<br />
+<br />

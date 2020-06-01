@@ -1,0 +1,179 @@
+<!-- time is related to the .ts file -->
+<!-- margin : auto will center the comment -->
+<h3>Basic Comment</h3>
+<nz-comment
+  nzAuthor="Anonymous"
+  [nzDatetime]="time"
+  style="width: 740px; margin: auto;"
+>
+  <!-- avatar -->
+  <nz-avatar nz-comment-avatar
+    ><i style="font-size: 30px;" nz-icon nzType="user" nzTheme="outline"></i
+  ></nz-avatar>
+  <!-- content -->
+  <nz-comment-content>
+    <p>
+      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Animi, vero hic
+      nobis sint at ad fugit accusamus? Vero in cumque repellendus, commodi
+      totam atque doloremque impedit ipsam odio obcaecati neque, eum, facilis
+      blanditiis magni sapiente voluptatum iusto.
+    </p>
+  </nz-comment-content>
+  <!-- action -->
+  <nz-comment-action>
+    <!-- for like -->
+    <!-- the theme will change if clicked
+      and the count will become 1 -->
+    <i
+      nz-icon
+      nzType="like"
+      [nzTheme]="likes > 0 ? 'twotone' : 'outline'"
+      (click)="like()"
+      nz-tooltip
+      nzTitle="Like"
+      style="font-size: 20px;"
+    ></i>
+    <span>{{ likes }}</span>
+  </nz-comment-action>
+  <nz-comment-action>
+    <!-- for dislike -->
+    <!-- the theme will change if clicked
+      and the count will become 1 -->
+    <i
+      nz-icon
+      nzType="dislike"
+      [nzTheme]="dislikes > 0 ? 'twotone' : 'outline'"
+      (click)="dislike()"
+      nz-tooltip
+      nzTitle="Dislike"
+      style="font-size: 20px;"
+    ></i>
+    <span>{{ dislikes }}</span>
+  </nz-comment-action>
+  <nz-comment-action>Reply to</nz-comment-action>
+</nz-comment>
+
+<br />
+<!-- notice that the nz-comment tag is enclosed on ng-template tag -->
+<!-- and ng-template tag is enclosed on nz-list tag -->
+<h3>Usage with list</h3>
+<!-- invoke listData from .ts file -->
+<nz-list
+  [nzDataSource]="listData"
+  [nzRenderItem]="item"
+  style="width: 740px; margin: auto;"
+>
+  <!-- invoke render item -->
+  <!-- the item used below is from the
+      item above on ng-list tag -->
+  <ng-template #item let-item>
+    <!-- author -->
+    <!-- the item used below is from the
+      item above on ng-template tag -->
+    <nz-comment [nzAuthor]="item.author" [nzDatetime]="item.datetime">
+      <!-- avatar -->
+      <nz-avatar nz-comment-avatar
+        ><i style="font-size: 30px;" nz-icon nzType="user" nzTheme="outline"></i
+      ></nz-avatar>
+      <!-- content -->
+      <nz-comment-content>
+        <p>{{ item.content }}</p>
+      </nz-comment-content>
+      <nz-comment-action>Reply to</nz-comment-action>
+    </nz-comment>
+  </ng-template>
+</nz-list>
+
+<br />
+<!-- notice that the nz-comment tag is enclosed on ng-template tag -->
+<h3>Nested Comment</h3>
+<!-- the commentTemplateRef corresponds to below on ng-template tag -->
+<ng-template #commentTemplateRef let-comment="comment">
+  <!-- for author -->
+  <!-- since above tag is just only template,
+  we need to put the width on nz-comment tag below,
+  so that style will take effect -->
+  <!-- the comment used below is from comment 
+    above on ng-template tag -->
+  <nz-comment [nzAuthor]="comment.author" style="width: 740px; margin: auto;">
+    <!-- for avater -->
+    <nz-avatar nz-comment-avatar
+      ><i style="font-size: 30px;" nz-icon nzType="user" nzTheme="outline"></i
+    ></nz-avatar>
+    <!-- for content -->
+    <nz-comment-content>
+      <p>{{ comment.content }}</p>
+    </nz-comment-content>
+    <!-- for action -->
+    <nz-comment-action>
+      Replty to
+    </nz-comment-action>
+    <!-- for child comments -->
+    <!-- a-ng-c -->
+    <!-- snippet : a-ngI -->
+    <ng-container *ngIf="comment.children && comment.children.length">
+      <ng-template ngFor let-child [ngForOf]="comment.children">
+        <ng-template
+          [ngTemplateOutlet]="commentTemplateRef"
+          [ngTemplateOutletContext]="{ comment: child }"
+        ></ng-template>
+      </ng-template>
+    </ng-container>
+  </nz-comment>
+</ng-template>
+<!-- set the data from ts to ng-template tag -->
+<!-- nestedData is from ts file -->
+<ng-template
+  [ngTemplateOutlet]="commentTemplateRef"
+  [ngTemplateOutletContext]="{ comment: nestedData }"
+></ng-template>
+
+<br />
+<!-- notice that the nz-comment tag is enclosed on ng-template tag -->
+<!-- and ng-template tag is enclosed on nz-list tag -->
+<h3>Reply Editor</h3>
+<!-- data is from .ts file -->
+<!-- the data is from .ts file -->
+<nz-list [nzDataSource]="data" [nzRenderItem]="item">
+  <!-- item from below pertains to item from above -->
+  <ng-template #item let-item>
+    <!-- for author -->
+    <nz-comment [nzAuthor]="item.author" [nzDatetime]="item.datetime">
+      <!-- for avatar -->
+      <nz-avatar nz-comment-avatar
+        ><i style="font-size: 30px;" nz-icon nzType="user" nzTheme="outline"></i
+      ></nz-avatar>
+      <!-- for content -->
+      <nz-comment-content>
+        <p>{{ item.content }}</p>
+      </nz-comment-content>
+    </nz-comment>
+  </ng-template>
+</nz-list>
+<!-- another comment tag for textarea -->
+<nz-comment>
+  <!-- for avatar -->
+  <nz-avatar nz-comment-avatar>
+    <i style="font-size: 30px;" nz-icon nzType="user" nzTheme="outline"></i
+  ></nz-avatar>
+  <!-- for content -->
+  <nz-comment-content>
+    <!-- for textarea input form -->
+    <nz-form-item>
+      <!-- snippet : a-ngM -->
+      <textarea nz-input [(ngModel)]="inputValue" rows="4"></textarea>
+    </nz-form-item>
+    <!-- for add comment button  -->
+    <nz-form-item>
+      <button
+        [disabled]="!inputValue"
+        (click)="handleSubmit()"
+        [nzLoading]="submitting"
+        nz-button
+        nzType="primary"
+      >
+        Add Comment
+      </button>
+    </nz-form-item>
+  </nz-comment-content>
+</nz-comment>
