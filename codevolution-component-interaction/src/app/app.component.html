@@ -1,0 +1,70 @@
+<!-- interpolation -->
+{{ title }}
+<br />
+<br />
+
+<!-- we use [] to pass data from .ts to .html  -->
+<div>
+  <img [src]="imageUrl" />
+</div>
+<br />
+<br />
+
+<!-- we use () to pass/trigger from .html to .ts   -->
+<div>
+  {{ count }}
+  <button (click)="increment()">
+    Add
+  </button>
+</div>
+<br />
+<br />
+
+<!-- demo for [()] -->
+<div>
+  <!-- snippet : a-ngM -->
+  <input [(ngModel)]="name" type="text" />
+  you type : {{ name }}
+</div>
+<br />
+<br />
+
+<!-- split [()] to [] & () -->
+<div>
+  <input [ngModel]="userName" (ngModelChange)="userName = $event" type="text" />
+  <p>welcome : {{ userName }}</p>
+</div>
+<div>
+  <!-- same as above but using method to add more functionality -->
+  <input [ngModel]="userName1" (ngModelChange)="greet($event)" type="text" />
+  <p>welcome : {{ userName1 }}</p>
+</div>
+<br />
+<br />
+
+<!-- getter & setter -->
+<div>
+  <!-- snippet : a-ngM -->
+  <!-- note that we are binding customerName method and not the _customername var -->
+  <input [(ngModel)]="customerName" type="text" />
+  <p>{{ customerName }}</p>
+</div>
+<br />
+<br />
+
+<!-- ViewChild decorator -->
+<div>
+  <!-- snippet : a-ngM -->
+  <input #viewRef [(ngModel)]="view" type="text" />
+  <p>welcome {{ view }}</p>
+</div>
+<br />
+<br />
+
+<!-- Parent & Child with @Input("var_name") decorator -->
+<div>
+  <p>parent works!</p>
+  <!-- invoke child -->
+  <!-- passed data from parent : userLoggedIn to child : loggedIn -->
+  <app-child [loggedIn]="userLoggedIn"></app-child>
+</div>
