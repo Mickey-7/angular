@@ -1,0 +1,33 @@
+reference : https://www.youtube.com/watch?v=1vYoCoeKLg4&list=PL4cSPhAvl8xU8EX8tuI84im9ITruvph6T&index=2&t=0s
+
+-----------------------------------------------------------------------------------------------------------------------
+
+generate component :
+    with no selector, tests & import (not automatically imported on app.module.ts),
+
+        npx ng g c lazyCompA --skipTests --skipImport --skipSelector -is
+
+-----------------------------------------------------------------------------------------------------------------------
+
+for lazy loading we need :
+
+    ViewContainerRef
+
+    Understanding ViewContainerRef in Angular 2. ... 
+    Angular is not magic; it's just JavaScript. 
+    If you want to insert new component or template, 
+    you need to tell Angular where to put this element. 
+    And that's what ViewContainerRef is: 
+    A DOM element (container) where I can put 
+    your newly component as a sibling to this element.
+
+    ComponentFactoryResolver
+    
+    A simple registry that maps Components 
+    to generated ComponentFactory classes 
+    that can be used to create instances of components. 
+    Use to obtain the factory for a given component type, 
+    then use the factory's create() method 
+    to create a component of that type.
+
+-----------------------------------------------------------------------------------------------------------------------

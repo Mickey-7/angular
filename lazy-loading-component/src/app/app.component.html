@@ -1,0 +1,21 @@
+<h3>App</h3>
+
+<!-- this will appear after 
+  <button (click)="loadBetween()">Load</button> -->
+<!-- invoke lazy component - 4 -->
+<button (click)="load()">Load</button>
+
+<h3>Top</h3>
+
+<!-- invoke lazy component - 8 -->
+<!-- snippet : a-ngI -->
+<ng-template
+  *ngIf="lazyCom"
+  [ngComponentOutlet]="lazyCom | async"
+></ng-template>
+
+<h3>Buttom</h3>
+
+<!-- this will appear after <h3>Top</h3> -->
+<!-- invoke lazy component - 9 -->
+<button (click)="loadBetween()">Load</button>
