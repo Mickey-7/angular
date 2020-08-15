@@ -1,0 +1,65 @@
+<h3>Angular 7 Template-Driven Form Validation</h3>
+<form
+  [mustMatch]="['password', 'confirmPassword']"
+  #f="ngForm"
+  name="form"
+  (ngSubmit)="f.valid && onSubmit()"
+>
+  <!-- firstName -->
+  <div>
+    <label>FirstName</label>
+    <input
+      name="firstName"
+      #firstName="ngModel"
+      [(ngModel)]="model.firstName"
+      required
+    />
+    <div *ngIf="f.submitted && firstName.invalid">
+      <div *ngIf="firstName.errors.required">FirstName is required</div>
+    </div>
+  </div>
+  <!-- email -->
+  <div>
+    <label>Email</label>
+    <input name="email" #email="ngModel" [(ngModel)]="model.email" required />
+    <div *ngIf="f.submitted && email.invalid">
+      <div *ngIf="email.errors.required">Email is required</div>
+    </div>
+  </div>
+  <!-- password -->
+  <div>
+    <label>Password</label>
+    <input
+      name="password"
+      #password="ngModel"
+      [(ngModel)]="model.password"
+      required
+      minlength="6"
+      type="password"
+    />
+    <div *ngIf="f.submitted && password.invalid">
+      <div *ngIf="password.errors.required">Password is required</div>
+    </div>
+  </div>
+  <!-- confirmPassword -->
+  <div>
+    <label>Confirm Password</label>
+    <input
+      name="confirmPassword"
+      #confirmPassword="ngModel"
+      [(ngModel)]="model.confirmPassword"
+      required
+      type="password"
+    />
+    <div *ngIf="f.submitted && confirmPassword.invalid">
+      <div *ngIf="confirmPassword.errors.required">
+        Confirm Password is required
+      </div>
+      <div *ngIf="confirmPassword.errors.mustMatch">
+        Confirm Password must match
+      </div>
+    </div>
+  </div>
+  <!-- submit -->
+  <div><button>Submit</button></div>
+</form>

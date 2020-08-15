@@ -1,0 +1,38 @@
+<h3>Angular 6 Reactive Form Validation</h3>
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+  <!-- firstName -->
+  <div>
+    <label>FirsName</label>
+    <input formControlName="firstName" />
+    <div *ngIf="submitted && f.firstName.errors">
+      <div *ngIf="f.firstName.errors.required">
+        FirstName is required
+      </div>
+    </div>
+  </div>
+  <!-- email -->
+  <div>
+    <label>Email</label>
+    <input formControlName="email" />
+    <div *ngIf="submitted && f.email.errors">
+      <div *ngIf="f.email.errors.required">
+        Email is required
+      </div>
+    </div>
+  </div>
+  <!-- password -->
+  <div>
+    <label>Password</label>
+    <input formControlName="password" />
+    <div *ngIf="submitted && f.password.errors">
+      <div *ngIf="f.password.errors.required">
+        Password is required
+      </div>
+      <div *ngIf="f.password.errors.minlength">
+        Password must be at least 6 characters
+      </div>
+    </div>
+  </div>
+  <!-- submit -->
+  <div><button>Submit</button></div>
+</form>
