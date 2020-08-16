@@ -1,0 +1,29 @@
+reference: https://jasonwatmore.com/post/2019/06/22/angular-8-jwt-authentication-example-tutorial
+
+C:\Users\donat\Documents\jwt-authentication>npx ng g g _helpers/auth --skipTests
+? Which interfaces would you like to implement? CanActivate
+CREATE src/app/_helpers/auth.guard.ts (456 bytes)
+C:\Users\donat\Documents\jwt-authentication>npx ng g interceptor _helpers/error --skipTests      
+CREATE src/app/_helpers/error.interceptor.ts (410 bytes)
+C:\Users\donat\Documents\jwt-authentication>npx ng g interceptor _helpers/jwt --skipTests        
+CREATE src/app/_helpers/jwt.interceptor.ts (408 bytes)
+
+C:\Users\donat\Documents\jwt-authentication>npx ng g cl _models/user --skipTests                 
+CREATE src/app/_models/user.ts (22 bytes)
+
+C:\Users\donat\Documents\jwt-authentication>npx ng g s _services/user --skipTests
+CREATE src/app/_services/user.service.ts (133 bytes)
+C:\Users\donat\Documents\jwt-authentication>npx ng g s _services/authentication --skipTests      
+CREATE src/app/_services/authentication.service.ts (143 bytes)
+
+C:\Users\donat\Documents\jwt-authentication>npx ng g c home --skipTests -is
+CREATE src/app/home/home.component.html (19 bytes)
+CREATE src/app/home/home.component.ts (242 bytes)
+UPDATE src/app/app.module.ts (467 bytes)
+C:\Users\donat\Documents\jwt-authentication>npx ng g c login --skipTests -is
+CREATE src/app/login/login.component.html (20 bytes)
+CREATE src/app/login/login.component.ts (245 bytes)
+UPDATE src/app/app.module.ts (545 bytes)
+
+
+
